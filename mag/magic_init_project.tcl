@@ -15,6 +15,7 @@ set POWER_STRIPE_WIDTH 2um                 ;# The minimum width is 1.2um
 # Power stripes: NET name, x position. You can add additional power stripes for each net, as needed.
 set POWER_STRIPES {
     VDPWR 1um
+    VAPWR 7um
     VGND  4um
 }
 # If you use the 3v3 template, uncomment the line below:
@@ -51,4 +52,4 @@ save ${TOP_LEVEL_CELL}.mag
 file mkdir gds
 gds write gds/${TOP_LEVEL_CELL}.gds
 file mkdir lef
-lef write lef/${TOP_LEVEL_CELL}.lef -hide -pinonly
+lef write lef/${TOP_LEVEL_CELL}.lef -pinonly

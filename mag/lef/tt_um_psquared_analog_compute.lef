@@ -415,22 +415,6 @@ MACRO tt_um_psquared_analog_compute
         RECT 74.830 224.760 75.130 225.760 ;
     END
   END uo_out[7]
-  PIN VDPWR
-    DIRECTION INOUT ;
-    USE POWER ;
-    PORT
-      LAYER met4 ;
-        RECT 1.000 5.000 3.000 220.760 ;
-    END
-  END VDPWR
-  PIN VGND
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met4 ;
-        RECT 4.000 5.000 6.000 220.760 ;
-    END
-  END VGND
 END tt_um_psquared_analog_compute
 END LIBRARY
 
