@@ -1,7 +1,7 @@
 # Tiny Tapeout project information
 project:
   title:        "ttsky26c_analog_compute"      # Project title
-  author:       "Pranay Arvind Patil"      # Your name
+  author:       "Pranay Arvind Patil, Aditya Baderia and Nithin Purushothama"      # Your name
   discord:      "psquare9898"      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
   description:  "Evaluation of polynomial using translinear circuit"      # One line description of what your project does
   language:     "Analog" # other examples include Verilog, Amaranth, VHDL, etc
