@@ -1,7 +1,7 @@
 # Tiny Tapeout project information
 project:
   title:        "ttsky26c_analog_compute"      # Project title
-  author:       "Pranay Arvind Patil, Aditya Baderia and Nithin Purushothama"      # Your name
+  author:       "Pranay Arvind Patil, Aditya Baderia and Nithin Purushothama, Madhav Pathak"      # Your name
   discord:      "psquare9898"      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
   description:  "Evaluation of polynomial using translinear circuit"      # One line description of what your project does
   language:     "Analog" # other examples include Verilog, Amaranth, VHDL, etc
@@ -55,8 +55,8 @@ pinout:
   uio[7]: ""
 
   # Analog pins - make sure to also set "analog_pins" above, else the pins won't be connected
-  ua[0]: ""
-  ua[1]: ""
+  ua[0]: "vin"
+  ua[1]: "vout"
   ua[2]: ""
   ua[3]: ""
   ua[4]: ""

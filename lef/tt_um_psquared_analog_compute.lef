@@ -35,16 +35,30 @@ MACRO tt_um_psquared_analog_compute
     DIRECTION INOUT ;
     USE SIGNAL ;
     PORT
+      LAYER met1 ;
+        RECT 102.000 96.000 152.710 98.000 ;
+        RECT 151.810 1.000 152.710 96.000 ;
+      LAYER met2 ;
+        RECT 151.810 1.000 152.710 3.000 ;
+      LAYER met3 ;
+        RECT 151.810 1.000 152.710 3.000 ;
       LAYER met4 ;
-        RECT 151.810 0.000 152.710 1.000 ;
+        RECT 151.810 0.000 152.710 3.000 ;
     END
   END ua[0]
   PIN ua[1]
     DIRECTION INOUT ;
     USE SIGNAL ;
     PORT
+      LAYER met1 ;
+        RECT 102.000 92.000 133.390 94.000 ;
+        RECT 132.490 1.000 133.390 92.000 ;
+      LAYER met2 ;
+        RECT 132.490 1.000 133.390 3.000 ;
+      LAYER met3 ;
+        RECT 132.490 1.000 133.390 3.000 ;
       LAYER met4 ;
-        RECT 132.490 0.000 133.390 1.000 ;
+        RECT 132.490 0.000 133.390 3.000 ;
     END
   END ua[1]
   PIN ua[2]
@@ -415,6 +429,62 @@ MACRO tt_um_psquared_analog_compute
         RECT 74.830 224.760 75.130 225.760 ;
     END
   END uo_out[7]
+  PIN VDPWR
+    DIRECTION INOUT ;
+    USE POWER ;
+    PORT
+      LAYER li1 ;
+        RECT 100.200 101.490 100.370 102.000 ;
+      LAYER met1 ;
+        RECT 100.000 102.000 100.480 102.210 ;
+        RECT 2.000 101.480 100.800 102.000 ;
+        RECT 2.000 101.330 100.480 101.480 ;
+        RECT 2.000 100.000 100.000 101.330 ;
+      LAYER met2 ;
+        RECT 2.000 100.000 3.000 102.000 ;
+      LAYER met3 ;
+        RECT 2.000 100.000 3.000 102.000 ;
+      LAYER met4 ;
+        RECT 1.000 5.000 3.000 220.760 ;
+    END
+  END VDPWR
+  PIN VAPWR
+    DIRECTION INOUT ;
+    USE POWER ;
+    PORT
+      LAYER met4 ;
+        RECT 7.000 5.000 9.000 220.760 ;
+    END
+  END VAPWR
+  PIN VGND
+    DIRECTION INOUT ;
+    USE GROUND ;
+    PORT
+      LAYER met1 ;
+        RECT 5.000 88.000 100.000 90.000 ;
+      LAYER met2 ;
+        RECT 5.000 88.000 6.000 90.000 ;
+      LAYER met3 ;
+        RECT 5.000 88.000 6.000 90.000 ;
+      LAYER met4 ;
+        RECT 4.000 5.000 6.000 220.760 ;
+    END
+  END VGND
+  OBS
+      LAYER li1 ;
+        RECT 100.190 104.450 100.360 104.970 ;
+      LAYER met1 ;
+        RECT 100.890 105.670 101.280 105.960 ;
+        RECT 100.120 104.970 100.510 105.060 ;
+        RECT 100.120 104.450 100.830 104.970 ;
+        RECT 101.210 104.450 101.790 104.970 ;
+        RECT 100.120 104.410 100.450 104.450 ;
+        RECT 100.900 102.190 101.230 104.220 ;
+        RECT 101.500 102.000 101.790 104.450 ;
+        RECT 101.330 101.480 101.790 102.000 ;
+        RECT 101.340 101.450 101.790 101.480 ;
+        RECT 100.890 100.530 101.280 100.820 ;
+  END
 END tt_um_psquared_analog_compute
 END LIBRARY
 

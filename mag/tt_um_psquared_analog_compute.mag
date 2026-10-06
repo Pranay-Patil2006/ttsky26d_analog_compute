@@ -1,6 +1,31 @@
 magic
 tech sky130A
-timestamp 1787250591
+timestamp 1791293024
+<< checkpaint >>
+rect -230 -130 1230 22706
+rect 9370 9370 10842 11285
+<< metal1 >>
+rect 300 10000 10000 10200
+rect 10200 9600 15271 9800
+rect 10200 9200 13339 9400
+rect 600 8800 10000 9000
+rect 13249 300 13339 9200
+rect 15181 300 15271 9600
+<< via1 >>
+rect 200 10000 300 10200
+rect 500 8800 600 9000
+rect 13249 100 13339 300
+rect 15181 100 15271 300
+<< via2 >>
+rect 200 10000 300 10200
+rect 500 8800 600 9000
+rect 13249 100 13339 300
+rect 15181 100 15271 300
+<< via3 >>
+rect 200 10000 300 10200
+rect 500 8800 600 9000
+rect 13249 100 13339 300
+rect 15181 100 15271 300
 << metal4 >>
 rect 3067 22476 3097 22576
 rect 3343 22476 3373 22576
@@ -45,6 +70,13 @@ rect 13831 22476 13861 22576
 rect 14107 22476 14137 22576
 rect 14383 22476 14413 22576
 rect 14659 22476 14689 22576
+rect 100 10200 300 22076
+rect 100 10000 200 10200
+rect 100 500 300 10000
+rect 400 9000 600 22076
+rect 400 8800 500 9000
+rect 400 500 600 8800
+rect 700 500 900 22076
 rect 1657 0 1747 100
 rect 3589 0 3679 100
 rect 5521 0 5611 100
@@ -53,6 +85,10 @@ rect 9385 0 9475 100
 rect 11317 0 11407 100
 rect 13249 0 13339 100
 rect 15181 0 15271 100
+use inverter  inverter_0
+timestamp 1791291293
+transform 1 0 9750 0 1 10493
+box 250 -493 462 162
 << labels >>
 flabel metal4 s 14383 22476 14413 22576 0 FreeSans 240 90 0 0 clk
 port 0 nsew signal input
@@ -156,6 +192,12 @@ flabel metal4 s 7759 22476 7789 22576 0 FreeSans 240 90 0 0 uo_out[6]
 port 49 nsew signal output
 flabel metal4 s 7483 22476 7513 22576 0 FreeSans 240 90 0 0 uo_out[7]
 port 50 nsew signal output
+flabel metal4 100 500 300 22076 1 FreeSans 200 0 0 0 VDPWR
+port 51 nsew power bidirectional
+flabel metal4 700 500 900 22076 1 FreeSans 200 0 0 0 VAPWR
+port 52 nsew power bidirectional
+flabel metal4 400 500 600 22076 1 FreeSans 200 0 0 0 VGND
+port 53 nsew ground bidirectional
 << properties >>
 string FIXED_BBOX 0 0 33488 22576
 << end >>
