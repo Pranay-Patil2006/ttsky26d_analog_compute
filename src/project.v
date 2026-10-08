@@ -5,7 +5,7 @@
 
 `default_nettype none
 
-module tt_um_sky26d_analog_compute(
+module tt_um_ttsky26d_analog_compute(
     input  wire       VGND,
     input  wire       VDPWR,    // 1.8v power supply
     input  wire       VAPWR,    // 3.3v power supply
