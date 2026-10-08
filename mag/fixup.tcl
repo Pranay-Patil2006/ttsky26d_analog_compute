@@ -12,10 +12,6 @@ box 5889 0 5979 400
 paint metal4
 box 3957 0 4047 400
 paint metal4
-box 2025 0 2115 400
-paint metal4
-box 93 0 183 400
-paint metal4
 
 box 5000 5000 5000 5000
 getcell inverter
