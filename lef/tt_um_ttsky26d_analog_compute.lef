@@ -441,11 +441,11 @@ MACRO tt_um_ttsky26d_analog_compute
   END VAPWR
   OBS
       LAYER nwell ;
-        RECT 64.720 21.430 66.830 28.700 ;
+        RECT 50.000 50.000 52.110 57.270 ;
       LAYER li1 ;
-        RECT 64.900 21.610 66.650 28.520 ;
+        RECT 50.180 50.180 51.930 57.090 ;
       LAYER met1 ;
-        RECT 64.840 22.060 66.410 28.070 ;
+        RECT 50.120 50.630 51.690 56.640 ;
   END
 END tt_um_ttsky26d_analog_compute
 END LIBRARY

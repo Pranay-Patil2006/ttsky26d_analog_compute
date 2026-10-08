@@ -1,0 +1,15 @@
+magic
+tech sky130A
+timestamp 1791493715
+<< metal4 >>
+rect 100 500 300 22076
+rect 400 500 600 22076
+rect 700 500 900 22076
+<< labels >>
+flabel metal4 100 500 300 22076 1 FreeSans 200 0 0 0 VDPWR
+port 1 nsew power bidirectional
+flabel metal4 400 500 600 22076 1 FreeSans 200 0 0 0 VGND
+port 2 nsew ground bidirectional
+flabel metal4 700 500 900 22076 1 FreeSans 200 0 0 0 VAPWR
+port 3 nsew power bidirectional
+<< end >>
