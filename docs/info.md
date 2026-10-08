@@ -18,3 +18,11 @@ Explain how to use your project
 ## External hardware
 
 List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+
+## How it works
+
+This is an evaluation of a polynomial using a translinear circuit.
+
+## How to test
+
+Provide appropriate voltages on `ua[0]` (vin) and measure the output on `ua[1]` (vout).
