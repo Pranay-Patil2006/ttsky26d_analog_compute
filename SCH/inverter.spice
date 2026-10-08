@@ -1,0 +1,6 @@
+** sch_path: /foss/designs/ttsky26d_analog_compute/SCH/inverter.sch
+.subckt inverter VDD vout vin GND
+*.PININFO VDD:B vout:B vin:B GND:B
+XM1 vout vin GND GND sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1
+XM2 vout vin VDD VDD sky130_fd_pr__pfet_01v8 L=0.15 W=1 nf=1
+.ends
