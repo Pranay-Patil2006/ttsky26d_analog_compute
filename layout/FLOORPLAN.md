@@ -1,6 +1,7 @@
 # Top-level floorplan: tt_um_ttsky26d_analog_compute (TT sky130 2x2, 1.8 V)
 
-Die (from `mag/tt_analog_2x2.def`): **319.24 × 225.76 µm** = 72,070 µm².
+Die (from `mag/tt_analog_2x2.def`, 1.8 V template): **334.88 × 225.76 µm** = 75,600 µm².
+(The repo previously held the 3.3 V template renamed as `tt_analog_2x2.def` — 319.24 µm wide; fixed 2026-11-18 after CI precheck failed.)
 Analog pins `ua[0..5]` are on the **bottom** edge (met4, 0.9 µm wide, y = 0–1 µm).
 Digital pins are on the **top** edge (met4, y = 224.76–225.76 µm).
 met5 is forbidden (TT power grid). Blocks use li..met3, so **met4 is free for top-level routing** over any block,
@@ -10,11 +11,11 @@ except over MIM caps (`cap_mim_m3_1` has its top plate on met4).
 
 | ua[5] vt0 | ua[4] gnd_comp | ua[3] in | ua[2] out | ua[1] vdd_comp | ua[0] vdd_idac |
 |---|---|---|---|---|---|
-| 40.02 | 59.34 | 78.66 | 97.98 | 117.30 | 136.62 |
+| 55.66 | 74.98 | 94.30 | 113.62 | 132.94 | 152.26 |
 
 | uio_in[3..0] code_c | ui_in[7..4] code_b | ui_in[3..0] code_a |
 |---|---|---|
-| 92.46 / 95.22 / 97.98 / 100.74 | 103.50 / 106.26 / 109.02 / 111.78 | 114.54 / 117.30 / 120.06 / 122.82 |
+| 108.10 / 110.86 / 113.62 / 116.38 | 119.14 / 121.90 / 124.66 / 127.42 | 130.18 / 132.94 / 135.70 / 138.46 |
 
 ## Device inventory (every primitive, incl. top-level bias devices)
 
@@ -32,6 +33,9 @@ Fixed during inventory: `I_V_conv` XC2 was `cap_mim_m3_2` (uses **met5**, forbid
 (met3/met4, same density). Sims unchanged.
 
 ## Floorplan (µm, origin bottom-left)
+
+The sketch below was drawn for the 319 µm die; the real die is 15.6 µm wider and all pins are shifted +15.64 µm in x.
+The arrangement is unchanged; the right column gains 15 µm (the OTAs no longer need to be rotated if preferred).
 
 ```
 y=225.8 ┌──────────────────────────── digital pins (top, x 92–123) ─────────────────────────────┐
@@ -59,7 +63,7 @@ y=225.8 ┌───────────────────────
 * **OTAs rotated 90°** (47 × 87 each) in the right column; MN_TAIL_BIAS is shared between them and the bias tree.
 * MIM caps (met4 top plate) are kept out of the met4 routing channels.
 
-Budget: core 20.7k + IDACs 17.6k + OTAs 8.2k + misc ≈ 6k = **≈ 52.5k of 72.1k µm² (73 %)**. It fits; the
+Budget: core 20.7k + IDACs 17.6k + OTAs 8.2k + misc ≈ 6k = **≈ 52.5k of 75.6k µm² (69 %)**. It fits; the
 remaining compaction targets are the IDAC (layout/gate ratio 4.5) and the core bus column.
 
 ## Order of work (modular)

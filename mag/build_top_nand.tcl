@@ -25,7 +25,7 @@ stripe VDPWR 1
 stripe VGND  4
 
 # analog pins ua[0..5]: met4 stub from the pin 5um into the die (analog_pins: 6)
-foreach x {136.62 117.30 97.98 78.66 59.34 40.02} {
+foreach x {152.26 132.94 113.62 94.30 74.98 55.66} {
     box [expr {$x-0.45}]um 0um [expr {$x+0.45}]um 5um
     paint met4
 }
@@ -54,20 +54,20 @@ proc stack {x y} {
     sq m3 $x $y 0.30 ; sq via3 $x $y 0.16
     sq m4 $x $y 0.30
 }
-set yT 225.76
+set yT 225.61   ;# die top 225.76 minus half wire width (vw extends by w/2)
 set by [expr {$cy+1.19}]
-# B -> ui_in[1] (x 120.06): m1 left to stack, m4 up to 209, right, up
+# B -> ui_in[1] (x 135.70): m1 left to stack, m4 up to 209, right, up
 set bx [expr {$cx+0.225}] ; set sbx [expr {$cx-1.5}]
 mcon $bx $by ; hw m1 $by $bx $sbx 0.23 ; stack $sbx $by
-vw m4 $sbx $by 209 0.3 ; hw m4 209 $sbx 120.06 0.3 ; vw m4 120.06 209 $yT 0.3
-# A -> ui_in[0] (x 122.82)
+vw m4 $sbx $by 209 0.3 ; hw m4 209 $sbx 135.70 0.3 ; vw m4 135.70 209 $yT 0.3
+# A -> ui_in[0] (x 138.46)
 set ax [expr {$cx+1.145}] ; set sax [expr {$cx+2.6}]
 mcon $ax $by ; hw m1 $by $ax $sax 0.23 ; stack $sax $by
-vw m4 $sax $by 206 0.3 ; hw m4 206 $sax 122.82 0.3 ; vw m4 122.82 206 $yT 0.3
-# Y -> uo_out[0] (x 78.66): m1 left at y+0.70, up to a stack at y+1.6
+vw m4 $sax $by 206 0.3 ; hw m4 206 $sax 138.46 0.3 ; vw m4 138.46 206 $yT 0.3
+# Y -> uo_out[0] (x 94.30): m1 left at y+0.70, up to a stack at y+1.6
 set yx [expr {$cx+0.685}] ; set yy [expr {$cy+0.70}] ; set syx [expr {$cx-2.5}] ; set syy [expr {$cy+1.6}]
 mcon $yx $yy ; hw m1 $yy $yx $syx 0.23 ; vw m1 $syx $yy $syy 0.23 ; stack $syx $syy
-vw m4 $syx $syy 207 0.3 ; hw m4 207 $syx 78.66 0.3 ; vw m4 78.66 207 $yT 0.3
+vw m4 $syx $syy 207 0.3 ; hw m4 207 $syx 94.30 0.3 ; vw m4 94.30 207 $yT 0.3
 
 # power: extend the m1 rails right, stack to m3, m3 west to the stripes, via3 onto them
 set px [expr {$cx+5.0}]

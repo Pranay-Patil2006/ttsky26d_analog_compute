@@ -38,7 +38,7 @@ When placing instances (like your translinear compute subcircuits) or drawing ro
     select cell my_subcircuit
     identify my_subcircuit_0
     ```
-*   **Template mismatches**: Make sure your `.def` template matches your voltage! The 3.3V template (`tt_analog_2x2_3v3.def`) has a larger die boundary (334.88µm vs 319.24µm) and places analog pins at different coordinates than the standard 1.8V template.
+*   **Template mismatches**: Make sure your `.def` template matches your voltage! For sky130 2x2 the **1.8V** template `tt_analog_2x2.def` is **334.88 x 225.76 um**; the **3.3V** template `tt_analog_2x2_3v3.def` is narrower (**319.24 um**, it reserves room for the VAPWR power switch) and its pins sit at different x. Precheck picks the template from `uses_vapwr` and fails with "Inconsistent die area between LEF and template DEF" if they disagree. Always copy the def from tt-support-tools (`tech/sky130A/def/analog/`) for the current shuttle.
 
 ## 3. GitHub Actions
 

@@ -90,7 +90,8 @@ Device facts the generator relies on:
 ## Submission (GitHub Actions)
 
 `gds.yaml` runs on every push: **gds** (reads `gds/` + `lef/` + `src/project.v`), then **precheck**
-(TT pin/metal/DRC checks) and **viewer**. `docs.yaml` checks `docs/info.md`. Follow with
+(TT pin/metal/DRC checks) and **viewer**. `docs.yaml` checks `docs/info.md`. **Run `layout/scripts/precheck_local.sh` before pushing** — it runs the same TT precheck locally in ~4 min
+(the CI gds+precheck cycle takes ~15 min). Follow CI with
 `gh run list -L 3` and `gh run view <id> --log-failed | grep -iE 'error|fail'`.
-The top cell is rebuilt by `mag/build_top_*.tcl` (template `mag/tt_analog_2x2.def`, VDPWR/VGND met4 stripes,
+The top cell is rebuilt by `mag/build_top_*.tcl` (template `mag/tt_analog_2x2.def` = 1.8 V, 334.88 × 225.76 µm, VDPWR/VGND met4 stripes,
 met4 stubs on ua[0..5] because `analog_pins: 6`).
