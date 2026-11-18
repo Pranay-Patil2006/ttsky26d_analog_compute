@@ -64,9 +64,9 @@ N 990 90 990 140 {lab=lin_out}
 N 920 140 990 140 {lab=lin_out}
 N 920 -10 920 60 {lab=vdd_comp}
 N 590 580 620 580 {lab=sq_out}
-N 660 480 660 550 {lab=vdd}
+N 660 480 660 550 {lab=vdd_comp}
 N 920 580 950 580 {lab=lin_out}
-N 880 480 880 550 {lab=vdd}
+N 880 480 880 550 {lab=vdd_comp}
 N 660 610 660 730 {lab=const_curr}
 N 660 730 880 730 {lab=const_curr}
 N 880 610 880 730 {lab=const_curr}
@@ -242,7 +242,7 @@ C {iopin.sym} 20 500 0 1 {name=p25 lab=out}
 C {lab_wire.sym} 830 1050 0 0 {name=p_m15s sig_type=std_logic lab=GND}
 C {lab_wire.sym} 920 0 0 0 {name=p1 sig_type=std_logic lab=vdd_comp
 }
-C {lab_wire.sym} 660 510 0 0 {name=p27 sig_type=std_logic lab=vdd
+C {lab_wire.sym} 660 510 0 0 {name=p27 sig_type=std_logic lab=vdd_comp
 }
 C {lab_wire.sym} 470 490 0 0 {name=p9 sig_type=std_logic lab=out
 }
@@ -307,7 +307,7 @@ model=nfet_01v8
 spiceprefix=X
 }
 C {iopin.sym} 660 780 0 0 {name=p31 lab=vdd}
-C {lab_wire.sym} 880 500 0 0 {name=p26 sig_type=std_logic lab=vdd
+C {lab_wire.sym} 880 500 0 0 {name=p26 sig_type=std_logic lab=vdd_comp
 }
 C {iopin.sym} 330 1020 0 1 {name=p19 lab=GND}
 C {lab_wire.sym} 20 480 0 0 {name=p8 sig_type=std_logic lab=out

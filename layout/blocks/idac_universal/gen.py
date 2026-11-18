@@ -1,6 +1,14 @@
 #!/usr/bin/env python3
-"""idac_universal layout (4-bit binary PMOS IDAC + NMOS/PMOS output mirror).
+"""idac_universal (v2, matched): 4-bit binary PMOS IDAC + NMOS/PMOS output mirror.
 Schematic: xschem/blocks/idac_universal.sch   Ports: VDD b1 b3 b2 b0 Vbranch GND out
+
+Matching:
+  * 16 unit current sources (W3 L7, gate Vbranch): A=XM27 x8 (bit3), B=XM2 x4, C=XM4 x2, D=XM6 x1,
+    R=XM10 x1 (reference diode). 2-D common centroid, one finger per diffusion island:
+        row 1: A B A C R A B A
+        row 2: A B A D C A B A
+  * NMOS mirror XM18 x20 (diode) / XM8 x2: rows A4 | A6 B | B A6 | A4 (XM8 mirrored about the centre)
+  * PMOS output mirror XM13 x3 (diode) / XM9 x3, W6 L14: row 1 A B B, row 2 B A A
 """
 import os, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -11,29 +19,31 @@ from runmagic import build
 um = 1000
 b = Block("idac_universal")
 
-# NMOS mirror: XM18 x20 diode (net5), XM8 x2 (net6); W3 L7, source GND
+# NMOS mirror (body/source GND)
 tN = {"X18": ("GND", "net5"), "X8": ("GND", "net6")}
-b.row("n", 3 * um, 7 * um, ["X18"] * 8, tN, "net5", "GND", "GND")
-b.row("n", 3 * um, 7 * um, ["X18"] * 8, tN, "net5", "GND", "GND")
-b.row("n", 3 * um, 7 * um, ["X8"] + ["X18"] * 4 + ["X8"], tN, "net5", "GND", "net6")
+for fing, first in ((["X18"] * 4, "GND"), (["X18"] * 6 + ["X8"], "GND"),
+                    (["X8"] + ["X18"] * 6, "net6"), (["X18"] * 4, "GND")):
+    b.mband("n", [dict(islands=[(fing, first)], t=tN, g="net5", L=7 * um, W=3 * um)], "GND")
 
-# binary current sources, gate Vbranch, W3 L7: XM27 x8 (net1) XM2 x4 (net4) XM4 x2 (net3)
-# XM6 x1 (net2), XM10 x1 diode (Vbranch)
+# binary-weighted unit sources (body/source VDD), one finger per island
+U = {"A": "X27", "B": "X2", "C": "X4", "D": "X6", "R": "X10"}
 tP = {"X27": ("VDD", "net1"), "X2": ("VDD", "net4"), "X4": ("VDD", "net3"),
       "X6": ("VDD", "net2"), "X10": ("VDD", "Vbranch")}
-b.row("p", 3 * um, 7 * um, ["X6"] + ["X27"] * 4 + ["X2"] * 2 + ["X10"], tP, "Vbranch", "VDD", "net2")
-b.row("p", 3 * um, 7 * um, ["X27"] * 4 + ["X2"] * 2 + ["X4"] * 2, tP, "Vbranch", "VDD", "VDD")
+for row in ("ABACRABA", "ABADCABA"):
+    b.mband("p", [dict(islands=[([U[c]], "VDD") for c in row], t=tP, g="Vbranch",
+                       L=7 * um, W=3 * um)], "VDD")
 
-# bit switches (W3 L0.15): XM7 b0 net2->net5, XM5 b1 net3, XM3 b2 net4, XM1 b3 net1
+# bit switches (W3 L0.15), no matching requirement
 b.switch_row("p", 3 * um, [("b0", "net2", "net5"), ("b1", "net3", "net5"),
                            ("b2", "net4", "net5"), ("b3", "net1", "net5")], "VDD")
 
-# output PMOS mirror W6 L14: XM13 x3 diode (net6), XM9 x3 (out)
+# PMOS output mirror W6 L14, 2-D common centroid
 tO = {"X13": ("VDD", "net6"), "X9": ("VDD", "out")}
-b.row("p", 6 * um, 14 * um, ["X9", "X13", "X13"], tO, "net6", "VDD", "out")
-b.row("p", 6 * um, 14 * um, ["X13", "X9", "X9"], tO, "net6", "VDD", "net6")
+b.mband("p", [dict(islands=[(["X13", "X9", "X9"], "net6")], t=tO, g="net6", L=14 * um, W=6 * um)], "VDD")
+b.mband("p", [dict(islands=[(["X9", "X13", "X13"], "out")], t=tO, g="net6", L=14 * um, W=6 * um)], "VDD")
 
 b.finish(["VDD", "b1", "b3", "b2", "b0", "Vbranch", "GND", "out"],
-         labels=["net1", "net2", "net3", "net4", "net5", "net6"])
+         labels=["net1", "net2", "net3", "net4", "net5", "net6"],
+         widths={"VDD": 1000, "GND": 1000})
 log = build(b.lay, os.path.join(HERE, "out"), extract=True)
 print("\n".join(l for l in log.splitlines() if "DRC_TOTAL" in l or "rror" in l))

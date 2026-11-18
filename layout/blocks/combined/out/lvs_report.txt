@@ -45,18 +45,18 @@ Subcircuit pins:
 Circuit 1: combined                        |Circuit 2: combined                        
 -------------------------------------------|-------------------------------------------
 i_v_out                                    |i_v_out                                    
-iy_lin                                     |iy_lin                                     
-iy_sq                                      |iy_sq                                      
-vdd_comp                                   |vdd_comp                                   
-ix_lin                                     |ix_lin                                     
-ix_sq                                      |ix_sq                                      
-iz_sq                                      |iz_sq                                      
-iz_lin                                     |iz_lin                                     
+vdd                                        |vdd                                        
 out                                        |out                                        
 vt0                                        |vt0                                        
-vdd                                        |vdd                                        
+vdd_comp                                   |vdd_comp                                   
 const_curr                                 |const_curr                                 
 GND                                        |GND                                        
+ix_lin                                     |ix_lin                                     
+ix_sq                                      |ix_sq                                      
+iz_lin                                     |iz_lin                                     
+iz_sq                                      |iz_sq                                      
+iy_lin                                     |iy_lin                                     
+iy_sq                                      |iy_sq                                      
 ---------------------------------------------------------------------------------------
 Cell pin lists are equivalent.
 Device classes combined and combined are equivalent.

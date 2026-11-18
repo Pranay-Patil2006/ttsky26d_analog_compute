@@ -122,6 +122,100 @@ class Block:
         self.y = max(ty.values()) + 160 + 350 + 145
         return [b[0] for b in built]
 
+    def mband(self, kind, segs, body, x0=0, gap=600, dummy_poly=True):
+        """Matched band. Each seg dict:
+             islands=[(fingers, first_net), ...]  separate diffusions sharing the gate straps
+             t={dev:(a,b)}  g={dev:gate_net}  L={dev:L_nm} or int  W=nm  [lvt]
+             sides={gate_net:'top'|'bot'}  (default: first gate top, second bot)
+        Top straps exit at the segment's right end, bottom straps at its left end.
+        Field-poly dummies (no device, LVS-neutral) are drawn at both diffusion ends."""
+        lay = self.lay
+        yr = self.y
+        anybot = any("bot" in d.get("sides", self._sides(d)).values() for d in segs)
+        y0 = yr + 145 + (300 + 485 + 100 if anybot else RAIL_GAP)
+        x = x0
+        out = []          # (seg-objects, gate exits)
+        for d in segs:
+            sides = d.get("sides", self._sides(d))
+            g = d["g"] if isinstance(d["g"], dict) else {k: d["g"] for k in d["t"]}
+            Lm = d["L"] if isinstance(d["L"], dict) else {k: d["L"] for k in d["t"]}
+            if "bot" in sides.values():
+                x += 900
+            xs0 = x
+            isl = []
+            dp = dummy_poly and d.get("dummy", True)
+            lmin = min(min(Lm.values()), 1000)   # dummy poly width (litho only matters at short L)
+            if dp:
+                x += 300 + lmin
+            for fingers, first in d["islands"]:
+                strips = chain(fingers, first, d["t"])
+                s = mos_segment(lay, x, y0, kind, d["W"], [Lm[f] for f in fingers],
+                                [g[f] for f in fingers], strips, sides, lvt=d.get("lvt", False))
+                s.strips = strips
+                isl.append(s)
+                if body in strips:
+                    strips_to_rail(lay, s, body, yr)
+                x = s.x2 + 270
+            x = isl[-1].x2
+            if dp:
+                for xa in (isl[0].x1 - 300 - lmin, x + 300):
+                    lay.rect("poly", xa, y0 - 130, xa + lmin, y0 + d["W"] + 130)
+                x += 300 + lmin
+            exits = {}
+            for gn, side in sides.items():
+                yc = [s.strap[(gn, side)][2] for s in isl if (gn, side) in s.strap][0]
+                xa = min(s.strap[(gn, side)][0] for s in isl if (gn, side) in s.strap)
+                xb = max(s.strap[(gn, side)][1] for s in isl if (gn, side) in s.strap)
+                if side == "top":
+                    xb = x + 900
+                    cx = xb - 145
+                else:
+                    xa = xs0
+                    cx = xa + 145
+                lay.rect("locali", xa, yc - 85, xb, yc + 85)
+                exits[gn] = (cx, yc)
+            out.append((isl, exits))
+            x = x + 900 + gap
+        x2 = x - gap
+        tap_strip(lay, "p" if kind == "n" else "n", x0, x2, yr)
+        self._rail(body, x0, x2, yr)
+        nets = []
+        for isl, exits in out:
+            for s in isl:
+                for n in s.strips:
+                    if n not in (body, None) and n not in nets:
+                        nets.append(n)
+            for gn in exits:
+                if gn not in nets and gn != body:
+                    nets.append(gn)
+        ytop = max(s.ytop + s.head for isl, _ in out for s in isl)
+        ty = {n: ytop + 400 + i * TP for i, n in enumerate(nets)}
+        for isl, exits in out:
+            for s in isl:
+                for n in dict.fromkeys(s.strips):
+                    if n in ty:
+                        xs = strips_to_track(lay, s, n, ty[n])
+                        self._track(n, ty[n], min(xs))
+            for gn, (cx, yc) in exits.items():
+                lay.mcon(cx, yc)
+                if gn == body:          # gate tied to the body rail (e.g. dummies)
+                    lay.rect("metal1", cx - 130, yr, cx + 130, yc)
+                    continue
+                lay.rect("metal1", cx - 130, yc, cx + 130, ty[gn])
+                lay.via1(cx, ty[gn], horiz=False)
+                self._track(gn, ty[gn], cx)
+        if kind == "p":
+            ytp = max(s.ytop for isl, _ in out for s in isl)
+            self.wells.append((x0 - 200, yr - 145 - 250, x2 + 200, ytp + 250))
+        self.xmax = max(self.xmax, x2 + 300)
+        self.y = max(ty.values()) + 160 + 350 + 145
+        return out
+
+    @staticmethod
+    def _sides(d):
+        gs = list(dict.fromkeys((d["g"] if isinstance(d["g"], dict) else {0: d["g"]}).values()))
+        return {gs[0]: "top", **({gs[1]: "bot"} if len(gs) > 1 else {})}
+
     def switch_row(self, kind, W, devs, rail_net, x0=0):
         """single-finger L=0.15 devices (dogbone gates): devs = [(gate, s_net, d_net), ...].
         rail_net only biases the tap rail (body), no source is tied to it."""
@@ -172,12 +266,17 @@ class Block:
         self.tracks.append([net, y, xmin])
 
     # ------------------------------------------------------------- finish
-    def finish(self, ports, labels=()):
+    def finish(self, ports, labels=(), widths=None):
         """ports: ordered list of port nets (symbol order). labels: extra internal net names."""
         lay = self.lay
         nets = list(dict.fromkeys([t[0] for t in self.tracks] + list(self.conn)))
         xb0 = self.xmax + 1500
-        busx = {n: xb0 + i * BUS_P for i, n in enumerate(nets)}
+        widths = widths or {}
+        busx, xc = {}, xb0
+        for n in nets:                       # wide buses for supplies / high-current nets
+            w = widths.get(n, M3_W)
+            busx[n] = xc + (w - M3_W) // 2
+            xc += BUS_P + (w - M3_W)
         ys = {n: [] for n in nets}
         for net, y, xmin in self.tracks:
             x = busx[net]
@@ -195,7 +294,7 @@ class Block:
             y1, y2 = min(ys[n]), max(ys[n])
             if y2 - y1 < 400:          # met3.6 min area on single-via buses
                 y2 = y1 + 400
-            lay.vwire("metal3", busx[n], y1 - 200, y2 + 200, M3_W)
+            lay.vwire("metal3", busx[n], y1 - 200, y2 + 200, widths.get(n, M3_W))
         for w in self.wells:
             lay.rect("nwell", *w)
         for i, n in enumerate(ports):
