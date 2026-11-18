@@ -139,6 +139,7 @@ class Block:
             sides = d.get("sides", self._sides(d))
             g = d["g"] if isinstance(d["g"], dict) else {k: d["g"] for k in d["t"]}
             Lm = d["L"] if isinstance(d["L"], dict) else {k: d["L"] for k in d["t"]}
+            x += d.get("pre", 0)               # explicit left padding (column alignment)
             if "bot" in sides.values():
                 x += 900
             xs0 = x
@@ -208,7 +209,7 @@ class Block:
             ytp = max(s.ytop for isl, _ in out for s in isl)
             self.wells.append((x0 - 200, yr - 145 - 250, x2 + 200, ytp + 250))
         self.xmax = max(self.xmax, x2 + 300)
-        self.y = max(ty.values()) + 160 + 350 + 145
+        self.y = (max(ty.values()) + 160 if ty else ytop) + 350 + 145
         return out
 
     @staticmethod

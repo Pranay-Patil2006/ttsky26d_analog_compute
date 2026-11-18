@@ -37,27 +37,27 @@ PLACE = {
         vdd_comp="ua[1]", vdd="ua[1]", out="ua[4]", vt0="ua[5]", GND="VGND", iz_lin="x1_iz_lin",
         iz_sq="x1_iz_sq", iy_sq="x1_iy_sq", ix_sq="x1_ix_sq", ix_lin="x1_ix_lin", iy_lin="x1_iy_lin",
         const_curr="x1_const_curr", i_v_out="x1_i_v_out")),
-    "x_idac_c": ("idac_universal", (8.0, 153.0), dict(VDD="ua[0]", GND="VGND", Vbranch="Vbranch3",
+    "x_idac_c": ("idac_universal", (7.5, 158.0), dict(VDD="ua[0]", GND="VGND", Vbranch="Vbranch3",
         out="x1_const_curr", b0="uio_in[0]", b1="uio_in[1]", b2="uio_in[2]", b3="uio_in[3]")),
-    "x_idac_b": ("idac_universal", (90.0, 153.0), dict(VDD="ua[0]", GND="VGND", Vbranch="Vbranch1",
+    "x_idac_b": ("idac_universal", (89.3, 158.0), dict(VDD="ua[0]", GND="VGND", Vbranch="Vbranch1",
         out="x1_iy_sq", b0="ui_in[4]", b1="ui_in[5]", b2="ui_in[6]", b3="ui_in[7]")),
-    "x_idac_a": ("idac_universal", (172.0, 153.0), dict(VDD="ua[0]", GND="VGND", Vbranch="Vbranch2",
+    "x_idac_a": ("idac_universal", (171.1, 158.0), dict(VDD="ua[0]", GND="VGND", Vbranch="Vbranch2",
         out="x1_ix_lin", b0="ui_in[0]", b1="ui_in[1]", b2="ui_in[2]", b3="ui_in[3]")),
-    "x_aux": ("aux", (8.0, 109.0), {n: n for n in (
+    "x_aux": ("aux", (252.5, 158.0), {n: n for n in (
         "VDPWR VGND MN_TAIL_BIAS Vbranch1 Vbranch2 Vbranch3 x1_iy_lin x1_ix_lin x1_iy_sq x1_ix_sq "
         "x1_iz_sq x1_iz_lin vi_vmir vi_net1 vi_net2").split()}),
-    "x_ota_vi": (OTA, (230.0, 3.0), dict(VDD="VDPWR", EN="VDPWR", VINN="vi_net2", VOUT="vi_net1",
+    "x_ota_vi": (OTA, (214.0, 3.0), dict(VDD="VDPWR", EN="VDPWR", VINN="vi_net2", VOUT="vi_net1",
         VINP="ua[3]", MN_TAIL_BIAS="MN_TAIL_BIAS", GNDA="VGND")),
-    "x_ota_iv": (OTA, (230.0, 54.0), dict(VDD="VDPWR", EN="VDPWR", VINN="MN_TAIL_BIAS", VOUT="iv_net1",
+    "x_ota_iv": (OTA, (214.0, 56.0), dict(VDD="VDPWR", EN="VDPWR", VINN="MN_TAIL_BIAS", VOUT="iv_net1",
         VINP="x1_i_v_out", MN_TAIL_BIAS="MN_TAIL_BIAS", GNDA="VGND")),
-    "x_pas": ("passives", (230.0, 106.0), dict(vi_vmir="vi_vmir", vi_net1="vi_net1", VGND="VGND",
+    "x_pas": ("passives", (214.0, 108.0), dict(vi_vmir="vi_vmir", vi_net1="vi_net1", VGND="VGND",
         vi_net2="vi_net2", x1_i_v_out="x1_i_v_out", VDPWR="VDPWR", ua2="ua[2]", iv_net1="iv_net1")),
 }
 # TT pins (template): analog pins on the bottom (met4 stubs drawn to y=5), digital pins on top
 UA_X = [152.26, 132.94, 113.62, 94.30, 74.98, 55.66]
 DIG_X = {f"ui_in[{i}]": 138.46 - 2.76 * i for i in range(8)}
 DIG_X.update({f"uio_in[{i}]": 116.38 - 2.76 * i for i in range(8)})
-STRIPES = [("VDPWR", 1.0), ("VGND", 4.0), ("VDPWR", 327.0), ("VGND", 330.5)]   # x of 2-um met4 stripes
+STRIPES = [("VDPWR", 1.0), ("VGND", 4.0), ("VDPWR", 303.0), ("VGND", 306.5)]   # x of 2-um met4 stripes
 
 
 def mag_ports(path):
@@ -348,7 +348,13 @@ def route_net(net, pres):
             for m in ((L, i + 1, j), (L, i - 1, j), (L, i, j + 1), (L, i, j - 1), (7 - L, i, j)):
                 if not hard_ok(*m, net):
                     continue
-                base = 4.0 if m[0] != L else (1.5 if m[0] == 3 else 1.0)
+                if m[0] != L:
+                    base = 4.0
+                elif net.startswith(("ui_in", "uio_in")):
+                    # antenna: keep the long run of the bit lines on met3; met4 only at the ends
+                    base = 1.0 if m[0] == 3 else 6.0
+                else:
+                    base = 1.5 if m[0] == 3 else 1.0
                 others = len(occ.get(m, set()) - {net})
                 nc = c + base * (1 + hist.get(m, 0)) + pres * others * 10
                 if nc < cost.get(m, INF):

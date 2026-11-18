@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""combined (v2, matched): translinear compute core.
+"""combined (v3, unit-cell common centroid per image_2026-11-18_213522026.png): translinear compute core.
 Schematic: xschem/blocks/combined.sch
 Ports: vdd_comp iz_lin iz_sq iy_sq ix_sq ix_lin iy_lin vt0 GND const_curr vdd i_v_out out
 
@@ -31,16 +31,57 @@ def quad(A, B, a_t, b_t, ga, gb, pat, first, L=4 * um):
                 L=L, W=W8, sides={ga: "top", gb: "bot"})
 
 
-# ---- squarer loop: G1 = XM1/XM4 (net1), G2 = XM5/XM3 (net2); 20+20 fingers each, 2 rows
-G1 = ("XM1", "XM4", ("net1", "ix_sq"), ("net1", "iy_sq"), "vt0", "iy_sq")
-G2 = ("XM5", "XM3", ("net2", "sq_out"), ("net2", "iz_sq"), "vt0", "iy_sq")
-b.mband("n", [quad(*G1, "ABBA" * 5, "ix_sq"), quad(*G2, "ABBA" * 5, "sq_out")], "GND")
-b.mband("n", [quad(*G2, "BAAB" * 5, "iz_sq"), quad(*G1, "BAAB" * 5, "iy_sq")], "GND")
-# ---- linear loop: G3 = XM7/XM10 (net3), G4 = XM11/XM9 (net4); 10+10 each, 2 rows
-G3 = ("XM7", "XM10", ("net3", "ix_lin"), ("net3", "iy_lin"), "vt0", "iy_lin")
-G4 = ("XM11", "XM9", ("net4", "lin_out"), ("net4", "iz_lin"), "vt0", "iy_lin")
-b.mband("n", [quad(*G3, "ABBAABBAAB", "ix_lin"), quad(*G4, "ABBAABBAAB", "lin_out")], "GND")
-b.mband("n", [quad(*G4, "BAABBAABBA", "iz_lin"), quad(*G3, "BAABBAABBA", "iy_lin")], "GND")
+# ---- translinear loops: unit-cell common-centroid arrays with a dummy ring
+# Squarer pattern and orientation map transcribed from image_2026-11-18_213522026.png (repo root).
+# A=XM1 (gate vt0, net1->ix_sq)  B=XM4 (gate iy_sq, net1->iy_sq)
+# C=XM5 (gate vt0, net2->sq_out) D=XM3 (gate iy_sq, net2->iz_sq)
+# R0 = source on the left, MY = drain on the left (mirrored unit).
+SQ_PAT = ["AABCDDCBAACCBDAADBCC", "BBCDAADCBBDDCBAABCDD", "DDCBAABCDDBBCDAADCBB", "CCBDAADBCCAABCDDCBAA"]
+SQ_ORI = ["R0 MY MY R0 R0 MY MY R0 R0 MY R0 MY R0 MY R0 MY R0 MY R0 MY",
+          "R0 MY R0 MY R0 MY R0 MY R0 MY R0 MY MY R0 R0 MY MY R0 R0 MY",
+          "MY R0 R0 MY MY R0 R0 MY MY R0 MY R0 MY R0 MY R0 MY R0 MY R0",
+          "MY R0 MY R0 MY R0 MY R0 MY R0 MY R0 R0 MY MY R0 R0 MY MY R0"]
+# Linear loop (10 units each) built with the same rule: rows 3,4 = rows 2,1 rotated 180 deg.
+# A=XM7 (vt0, net3->ix_lin) B=XM10 (iy_lin, net3->iy_lin) C=XM11 (vt0, net4->lin_out) D=XM9 (iy_lin, net4->iz_lin)
+_l1, _l2 = "ABCDACBDAC", "BDCADBACBD"
+LIN_PAT = [_l1, _l2, _l2[::-1], _l1[::-1]]
+_o1 = " ".join(["R0", "MY"] * 5); _o2 = " ".join(["MY", "R0"] * 5)
+LIN_ORI = [_o1, _o2, " ".join(_o2.split()[::-1]), " ".join(_o1.split()[::-1])]
+for P, O in ((SQ_PAT, SQ_ORI), (LIN_PAT, LIN_ORI)):      # self-checks: counts + 180-deg symmetry
+    for k in "ABCD":
+        assert sum(r.count(k) for r in P) == (20 if P is SQ_PAT else 10)
+    assert P[3] == P[0][::-1] and P[2] == P[1][::-1]
+    assert O[3].split() == O[0].split()[::-1] and O[2].split() == O[1].split()[::-1]
+
+SQ = {"A": ("XM1", ("net1", "ix_sq"), "vt0"), "B": ("XM4", ("net1", "iy_sq"), "iy_sq"),
+      "C": ("XM5", ("net2", "sq_out"), "vt0"), "D": ("XM3", ("net2", "iz_sq"), "iy_sq")}
+LN = {"A": ("XM7", ("net3", "ix_lin"), "vt0"), "B": ("XM10", ("net3", "iy_lin"), "iy_lin"),
+      "C": ("XM11", ("net4", "lin_out"), "vt0"), "D": ("XM9", ("net4", "iz_lin"), "iy_lin")}
+
+
+def array_row(M, pat, ori, gbot):
+    t = {M[k][0]: M[k][1] for k in M}
+    t["MDV"] = ("GND", "GND")
+    g = {M[k][0]: M[k][2] for k in M}
+    g["MDV"] = "vt0"                         # end-column dummies share the vt0 strap (Vds = 0)
+    isl = [(["MDV"], "GND")]
+    for c, o in zip(pat, ori.split()):
+        dev, (s_, d_), _ = M[c]
+        isl.append(([dev], s_ if o == "R0" else d_))
+    isl.append((["MDV"], "GND"))
+    return dict(islands=isl, t=t, g=g, L=4 * um, W=W8, sides={"vt0": "top", gbot: "bot"})
+
+
+def dummy_row(n, pre):
+    return dict(islands=[(["MDG"], "GND")] * n, t={"MDG": ("GND", "GND")}, g="GND", L=4 * um, W=W8,
+                pre=pre)
+
+
+b.mband("n", [dummy_row(22, 900), dummy_row(12, 900)], "GND")
+for r in range(4):
+    b.mband("n", [array_row(SQ, SQ_PAT[r], SQ_ORI[r], "iy_sq"),
+                  array_row(LN, LIN_PAT[r], LIN_ORI[r], "iy_lin")], "GND")
+b.mband("n", [dummy_row(22, 900), dummy_row(12, 900)], "GND")
 # ---- sum / output mirrors + loop feet (W1.2) to `out`
 foot = lambda d, dr, g: dict(islands=[([d], "out")], t={d: ("out", dr)}, g=g, L=4 * um, W=1200,
                              dummy=False)

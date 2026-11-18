@@ -1,0 +1,6 @@
+work/
+*.log
+*.ext
+*.sim
+*.nodes
+*.res.ext

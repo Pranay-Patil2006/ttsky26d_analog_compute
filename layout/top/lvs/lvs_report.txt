@@ -143,13 +143,13 @@ GND                                        |GND
 Cell pin lists are equivalent.
 Device classes idac_universal and idac_universal are equivalent.
 
-Class combined (0):  Merged 235 parallel devices.
+Class combined (0):  Merged 317 parallel devices.
 Subcircuit summary:
 Circuit 1: combined                        |Circuit 2: combined                        
 -------------------------------------------|-------------------------------------------
-sky130_fd_pr__nfet_01v8 (166->16)          |sky130_fd_pr__nfet_01v8 (166->16)          
 sky130_fd_pr__pfet_01v8 (91->6)            |sky130_fd_pr__pfet_01v8 (91->6)            
-Number of devices: 22                      |Number of devices: 22                      
+sky130_fd_pr__nfet_01v8 (250->18)          |sky130_fd_pr__nfet_01v8 (250->18)          
+Number of devices: 24                      |Number of devices: 24                      
 Number of nets: 21                         |Number of nets: 21                         
 ---------------------------------------------------------------------------------------
 Resolving symmetries by property value.
@@ -159,18 +159,18 @@ Subcircuit pins:
 Circuit 1: combined                        |Circuit 2: combined                        
 -------------------------------------------|-------------------------------------------
 i_v_out                                    |i_v_out                                    
-vdd                                        |vdd                                        
-out                                        |out                                        
-vt0                                        |vt0                                        
-vdd_comp                                   |vdd_comp                                   
-const_curr                                 |const_curr                                 
 GND                                        |GND                                        
+iy_lin                                     |iy_lin                                     
+iy_sq                                      |iy_sq                                      
 ix_lin                                     |ix_lin                                     
 ix_sq                                      |ix_sq                                      
 iz_lin                                     |iz_lin                                     
 iz_sq                                      |iz_sq                                      
-iy_lin                                     |iy_lin                                     
-iy_sq                                      |iy_sq                                      
+vt0                                        |vt0                                        
+const_curr                                 |const_curr                                 
+out                                        |out                                        
+vdd_comp                                   |vdd_comp                                   
+vdd                                        |vdd                                        
 ---------------------------------------------------------------------------------------
 Cell pin lists are equivalent.
 Device classes combined and combined are equivalent.
@@ -285,10 +285,10 @@ Circuit 1: tt_um_ttsky26d_analog_compute   |Circuit 2: tt_um_ttsky26d_analog_com
 idac_universal (3)                         |idac_universal (3)                         
 Rail_to_Rail_IP_OP_OTA_with_Intrenal_Bias  |Rail_to_Rail_IP_OP_OTA_with_Intrenal_Bias  
 combined (1)                               |combined (1)                               
-sky130_fd_pr__nfet_01v8_lvt (19->3)        |sky130_fd_pr__nfet_01v8_lvt (19->3)        
-sky130_fd_pr__nfet_01v8 (15->7)            |sky130_fd_pr__nfet_01v8 (15->7)            
-sky130_fd_pr__pfet_01v8 (18->12)           |sky130_fd_pr__pfet_01v8 (18->12)           
 sky130_fd_pr__pfet_01v8_lvt (5->2)         |sky130_fd_pr__pfet_01v8_lvt (5->2)         
+sky130_fd_pr__pfet_01v8 (18->12)           |sky130_fd_pr__pfet_01v8 (18->12)           
+sky130_fd_pr__nfet_01v8 (15->7)            |sky130_fd_pr__nfet_01v8 (15->7)            
+sky130_fd_pr__nfet_01v8_lvt (19->3)        |sky130_fd_pr__nfet_01v8_lvt (19->3)        
 sky130_fd_pr__res_xhigh_po_1p41 (2)        |sky130_fd_pr__res_xhigh_po_1p41 (2)        
 sky130_fd_pr__cap_mim_m3_1 (2)             |sky130_fd_pr__cap_mim_m3_1 (2)             
 Number of devices: 34                      |Number of devices: 34                      

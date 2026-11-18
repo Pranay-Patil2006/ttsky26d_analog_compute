@@ -1,0 +1,33 @@
+
+Magic 8.3 revision 642 - Compiled on Wed May 13 07:57:37 PM CEST 2026.
+Starting magic under Tcl interpreter
+Using the terminal as the console.
+WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=1048576]
+Using NULL graphics device.
+Processing system .magicrc file
+Switching to WIRING tool.
+Switching to NETLIST tool.
+Switching to PICK tool.
+Switching to BOX tool.
+Sourcing design .magicrc for technology sky130A ...
+2 Magic internal units = 1 Lambda
+Input style sky130(): scaleFactor=2, multiplier=2
+The following types are not handled by extraction and will be treated as non-electrical types:
+    ubm 
+Scaled tech values by 2 / 1 to match internal grid scaling
+Loading sky130A Device Generator Menu ...
+Loading "ant.tcl" from command line.
+Cell tt_um_ttsky26d_analog_compute read from path ../../../mag
+Cell passives read from path ../../../mag/../layout/blocks/passives/out
+Cell Rail_to_Rail_IP_OP_OTA_with_Intrenal_Bias read from path ../../../mag/../xschem/ip/rail_to_rail_ota/layout/mag
+Cell idac_universal read from path ../../../mag/../layout/blocks/idac_universal/out
+Cell combined read from path ../../../mag/../layout/blocks/combined/out
+combined: 10000 rects
+Cell aux read from path ../../../mag/../layout/blocks/aux/out
+Extracting ant_flat into ant_flat.ext:
+ant_flat: 86 warnings
+Total of 86 warnings.
+Reading extract file.
+Building flattened netlist.
+Running antenna checks.
+antennacheck finished.

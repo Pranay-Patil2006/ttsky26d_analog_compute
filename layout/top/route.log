@@ -1,0 +1,7 @@
+OTA safe via spots: {'VDD': (3.1, 46.95), 'EN': (86.99, 43.88), 'GNDA': (3.1, 0.35)}
+iter 0: overused 68 failed []
+iter 1: overused 22 failed []
+iter 2: overused 6 failed []
+iter 3: overused 0 failed []
+nets: 36 failed: [] overused: 0
+wire segments: 6332

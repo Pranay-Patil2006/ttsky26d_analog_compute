@@ -312,3 +312,26 @@ C {lab_wire.sym} 880 500 0 0 {name=p26 sig_type=std_logic lab=vdd_comp
 C {iopin.sym} 330 1020 0 1 {name=p19 lab=GND}
 C {lab_wire.sym} 20 480 0 0 {name=p8 sig_type=std_logic lab=out
 }
+C {sky130_fd_pr/nfet3_01v8.sym} 1900 1200 0 0 {name=MDV
+L=4
+W=8
+body=GND
+nf=1 mult=16
+model=nfet_01v8
+spiceprefix=X
+}
+C {lab_pin.sym} 1920 1170 0 1 {name=p_mdv_d sig_type=std_logic lab=GND}
+C {lab_pin.sym} 1880 1200 0 0 {name=p_mdv_g sig_type=std_logic lab=vt0}
+C {lab_pin.sym} 1920 1230 0 1 {name=p_mdv_s sig_type=std_logic lab=GND}
+C {sky130_fd_pr/nfet3_01v8.sym} 1900 1400 0 0 {name=MDG
+L=4
+W=8
+body=GND
+nf=1 mult=68
+model=nfet_01v8
+spiceprefix=X
+}
+C {lab_pin.sym} 1920 1370 0 1 {name=p_mdg_d sig_type=std_logic lab=GND}
+C {lab_pin.sym} 1880 1400 0 0 {name=p_mdg_g sig_type=std_logic lab=GND}
+C {lab_pin.sym} 1920 1430 0 1 {name=p_mdg_s sig_type=std_logic lab=GND}
+T {Matching dummies (layout common-centroid ring): MDV = end-column dummies on the vt0 strap (Vds=0), MDG = ring rows, all GND} 1800 1120 0 0 0.3 0.3 {}

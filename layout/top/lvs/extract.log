@@ -22,6 +22,7 @@ Cell passives read from path ../layout/blocks/passives/out
 Cell Rail_to_Rail_IP_OP_OTA_with_Intrenal_Bias read from path ../xschem/ip/rail_to_rail_ota/layout/mag
 Cell idac_universal read from path ../layout/blocks/idac_universal/out
 Cell combined read from path ../layout/blocks/combined/out
+combined: 10000 rects
 Cell aux read from path ../layout/blocks/aux/out
 Extracting passives into /foss/designs/ttsky26d_analog_compute/layout/top/lvs/passives.ext:
 Processing passives
@@ -31,8 +32,10 @@ Extracting idac_universal into /foss/designs/ttsky26d_analog_compute/layout/top/
 Processing idac_universal
 Extracting combined into /foss/designs/ttsky26d_analog_compute/layout/top/lvs/combined.ext:
 Processing combined
+combined: 84 warnings
 Extracting aux into /foss/designs/ttsky26d_analog_compute/layout/top/lvs/aux.ext:
 Processing aux
 Extracting tt_um_ttsky26d_analog_compute into /foss/designs/ttsky26d_analog_compute/layout/top/lvs/tt_um_ttsky26d_analog_compute.ext:
 Processing tt_um_ttsky26d_analog_compute
+Total of 84 warnings.
 exttospice finished.

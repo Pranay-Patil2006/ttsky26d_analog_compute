@@ -79,7 +79,7 @@ MACRO tt_um_ttsky26d_analog_compute
   PIN ua[5]
     DIRECTION INOUT ;
     USE SIGNAL ;
-    ANTENNAGATEAREA 1920.000000 ;
+    ANTENNAGATEAREA 2432.000000 ;
     PORT
       LAYER met4 ;
         RECT 55.210 0.000 56.110 1.000 ;
@@ -442,7 +442,7 @@ MACRO tt_um_ttsky26d_analog_compute
     END
     PORT
       LAYER met4 ;
-        RECT 327.000 5.000 329.000 220.760 ;
+        RECT 303.000 5.000 305.000 220.760 ;
     END
   END VDPWR
   PIN VGND
@@ -454,20 +454,20 @@ MACRO tt_um_ttsky26d_analog_compute
     END
     PORT
       LAYER met4 ;
-        RECT 330.500 5.000 332.500 220.760 ;
+        RECT 306.500 5.000 308.500 220.760 ;
     END
   END VGND
   OBS
       LAYER nwell ;
-        RECT 8.000 13.015 317.070 215.035 ;
+        RECT 7.500 13.015 314.910 220.035 ;
       LAYER li1 ;
-        RECT 8.200 3.125 316.890 215.270 ;
+        RECT 7.700 3.125 314.710 220.270 ;
       LAYER met1 ;
-        RECT 8.200 3.110 316.890 216.430 ;
+        RECT 7.700 3.110 333.610 221.430 ;
       LAYER met2 ;
-        RECT 8.185 3.085 316.905 216.430 ;
+        RECT 7.685 3.085 333.595 221.430 ;
       LAYER met3 ;
-        RECT 75.830 3.020 330.250 216.470 ;
+        RECT 75.330 3.020 333.910 223.250 ;
       LAYER met4 ;
         RECT 6.000 224.360 30.270 225.760 ;
         RECT 31.370 224.360 33.030 225.760 ;
@@ -512,11 +512,12 @@ MACRO tt_um_ttsky26d_analog_compute
         RECT 139.010 224.360 140.670 225.760 ;
         RECT 141.770 224.360 143.430 225.760 ;
         RECT 144.530 224.360 146.190 225.760 ;
-        RECT 147.290 224.360 330.500 225.760 ;
-        RECT 6.000 221.160 330.500 224.360 ;
-        RECT 6.400 4.600 326.600 221.160 ;
-        RECT 329.400 4.600 330.100 221.160 ;
-        RECT 6.000 1.400 330.500 4.600 ;
+        RECT 147.290 224.360 333.610 225.760 ;
+        RECT 6.000 221.160 333.610 224.360 ;
+        RECT 6.400 4.600 302.600 221.160 ;
+        RECT 305.400 4.600 306.100 221.160 ;
+        RECT 308.900 4.600 333.610 221.160 ;
+        RECT 6.000 1.400 333.610 4.600 ;
         RECT 6.000 1.000 16.170 1.400 ;
         RECT 17.870 1.000 35.490 1.400 ;
         RECT 37.190 1.000 54.810 1.400 ;
@@ -525,7 +526,7 @@ MACRO tt_um_ttsky26d_analog_compute
         RECT 95.150 1.000 112.770 1.400 ;
         RECT 114.470 1.000 132.090 1.400 ;
         RECT 133.790 1.000 151.410 1.400 ;
-        RECT 153.110 1.000 330.500 1.400 ;
+        RECT 153.110 1.000 333.610 1.400 ;
   END
 END tt_um_ttsky26d_analog_compute
 END LIBRARY
