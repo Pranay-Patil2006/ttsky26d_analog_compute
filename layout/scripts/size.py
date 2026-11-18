@@ -1,6 +1,6 @@
-import re,sys
-s=open(sys.argv[1]).read();xs=[];ys=[]
-for m in re.finditer(r'^rect (-?\d+) (-?\d+) (-?\d+) (-?\d+)',s,re.M):
-    a=list(map(int,m.groups()));xs+=a[::2];ys+=a[1::2]
-w,h=(max(xs)-min(xs))/200,(max(ys)-min(ys))/200
-print(f"{sys.argv[1].split('/')[-1]}: {w:.1f} x {h:.1f} um = {w*h:.0f} um2")
+"""bbox of a cell from its GDS (magic .mag 'checkpaint' layer inflates a .mag-based bbox)"""
+import sys, gdstk
+p = sys.argv[1].replace('.mag', '.gds')
+lib = gdstk.read_gds(p); t = lib.top_level()[0]
+(x1, y1), (x2, y2) = t.bounding_box()
+print(f"{t.name}: {x2-x1:.1f} x {y2-y1:.1f} um = {(x2-x1)*(y2-y1):.0f} um2")
