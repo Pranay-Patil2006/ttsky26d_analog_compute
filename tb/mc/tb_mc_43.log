@@ -1,0 +1,304 @@
+Note: Starting dynamic gmin stepping
+Note: Dynamic gmin stepping completed
+
+Note: Compatibility modes selected: hs a
+
+
+Circuit: * monte carlo run seed 43 (restored netlist)
+
+option SCALE: Scale is set to 1e-06 for instance and model parameters
+option SCALE: Scale is set to 1e-06 for instance and model parameters
+option SCALE: Scale is set to 1e-06 for instance and model parameters
+option SCALE: Scale is set to 1e-06 for instance and model parameters
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+vdd_analog                                 1.8
+vdd_comp                                   1.8
+gnd_comp                                     0
+vdpwr                                      1.8
+vgnd                                         0
+ui0                                          0
+ui1                                          0
+ui2                                          0
+ui3                                          0
+ui4                                          0
+ui5                                          0
+ui6                                          0
+ui7                                          0
+uio0                                       1.8
+uio1                                       1.8
+uio2                                       1.8
+uio3                                       1.8
+ena                                        1.8
+clk                                          0
+rst_n                                      1.8
+vin                                        0.1
+vt0                                        0.7
+x1.x5.net1                             1.79999
+x1.vbranch3                           0.626748
+x1.x5.net5                            0.239354
+x1.x5.net4                             1.79999
+x1.x5.net3                             1.79997
+x1.x5.net2                             1.79994
+x1.x5.net6                             1.12603
+x1.x1_const_curr                      0.391167
+x1.x2.net1                            0.892656
+x1.vbranch1                           0.622583
+x1.x2.net5                            0.598645
+x1.x2.net4                            0.872572
+x1.x2.net3                            0.823281
+x1.x2.net2                            0.814896
+x1.x2.net6                            0.664012
+x1.x1_iy_sq                           0.774932
+x1.x3.net1                             0.90066
+x1.vbranch2                           0.622982
+x1.x3.net5                            0.598289
+x1.x3.net4                            0.864816
+x1.x3.net3                            0.828747
+x1.x3.net2                            0.806633
+x1.x3.net6                            0.663954
+x1.x1_ix_lin                          0.737083
+x1.x1.net1                            0.272774
+x1.x1_ix_sq                           0.708619
+x1.x1.net2                            0.332331
+x1.x1_iz_sq                           0.584949
+x1.x1.sq_out                           1.06874
+x1.x1.net3                            0.188869
+x1.x1.net4                            0.228567
+x1.x1_iz_lin                           0.63808
+x1.x1_iy_lin                          0.671398
+x1.x1.lin_out                          0.93357
+x1.x1.net5                            0.751279
+x1.x1.net6                            0.624712
+x1.x1_i_v_out                         0.479386
+x1.x6.x1.net2                         0.219393
+x1.x6.x1.net8                         0.760918
+x1.x6.net1                            0.810853
+x1.x6.x1.vbn_casc                      0.94088
+x1.x6.x1.net1                         0.227435
+x1.x6.x1.net5                         0.694929
+x1.x6.x1.vbp_casc                     0.567888
+x1.x6.x1.net4                          1.53859
+x1.x6.x1.net3                          1.54607
+x1.x6.x1.net6                        0.0439849
+x1.mn_tail_bias                       0.481637
+x1.x6.x1.net7                          1.08294
+x1.x6.x1.net9                         0.634573
+x1.x6.x1.net16                       0.0172011
+x1.x6.x1.net11                         1.74246
+x1.x6.x1.net17                       0.0362948
+x1.x6.x1.net18                       0.0566725
+x1.x6.x1.net10                         1.66689
+x1.x6.x1.net19                        0.079698
+x1.x6.x1.net20                        0.108594
+x1.x6.x1.net21                        0.140347
+x1.x6.x1.net22                        0.183179
+x1.x6.x1.en_b                      4.90681e-07
+x1.x6.x1.vbp_top                      0.699363
+x1.x6.x1.net12                       0.0468621
+x1.x6.x1.net23                       0.0417261
+x1.x6.x1.xr14.x0.t1                  0.0417636
+x1.x6.x1.xr14.x0.t2                   0.046827
+x1.x6.x1.net24                       0.0364881
+x1.x6.x1.xr15.x0.t1                   0.036521
+x1.x6.x1.xr15.x0.t2                  0.0416857
+x1.x6.x1.net25                       0.0312924
+x1.x6.x1.xr16.x0.t1                  0.0313297
+x1.x6.x1.xr16.x0.t2                  0.0364515
+x1.x6.x1.net26                       0.0260003
+x1.x6.x1.xr17.x0.t1                  0.0260377
+x1.x6.x1.xr17.x0.t2                  0.0312537
+x1.x6.x1.net27                       0.0208064
+x1.x6.x1.xr18.x0.t1                  0.0208432
+x1.x6.x1.xr18.x0.t2                   0.025962
+x1.x6.x1.net28                       0.0157516
+x1.x6.x1.xr19.x0.t1                  0.0157871
+x1.x6.x1.xr19.x0.t2                   0.020771
+x1.x6.x1.net29                       0.0104444
+x1.x6.x1.xr20.x0.t1                  0.0104819
+x1.x6.x1.xr20.x0.t2                  0.0157148
+x1.x6.x1.net30                      0.00528937
+x1.x6.x1.xr21.x0.t1                 0.00532541
+x1.x6.x1.xr21.x0.t2                  0.0104087
+x1.x6.x1.xr22.x0.t1                3.75606e-05
+x1.x6.x1.xr22.x0.t2                 0.00525374
+x1.x6.x1.vstrp_ip                      1.78691
+x1.x6.x1.net31                         0.74392
+x1.x6.x1.net32                         0.60116
+x1.x6.x1.net33                        0.492598
+x1.x6.x1.net34                        0.400687
+x1.x6.x1.net35                        0.319926
+x1.x6.x1.net36                        0.246841
+x1.x6.x1.net37                        0.179412
+x1.x6.x1.net38                        0.116274
+x1.x6.x1.net39                       0.0565868
+x1.x6.x1.vstrp_out                         1.8
+x1.x6.x1.net15                             1.8
+x1.x6.x1.net40                             1.8
+x1.x6.x1.xr24.x0.t1                        1.8
+x1.x6.x1.xr24.x0.t2                        1.8
+x1.x6.x1.net41                             1.8
+x1.x6.x1.xr25.x0.t1                        1.8
+x1.x6.x1.xr25.x0.t2                        1.8
+x1.x6.x1.net42                             1.8
+x1.x6.x1.xr26.x0.t1                        1.8
+x1.x6.x1.xr26.x0.t2                        1.8
+x1.x6.x1.net43                             1.8
+x1.x6.x1.xr27.x0.t1                        1.8
+x1.x6.x1.xr27.x0.t2                        1.8
+x1.x6.x1.net44                             1.8
+x1.x6.x1.xr28.x0.t1                        1.8
+x1.x6.x1.xr28.x0.t2                        1.8
+x1.x6.x1.net45                             1.8
+x1.x6.x1.xr29.x0.t1                        1.8
+x1.x6.x1.xr29.x0.t2                        1.8
+x1.x6.x1.net46                             1.8
+x1.x6.x1.xr30.x0.t1                        1.8
+x1.x6.x1.xr30.x0.t2                        1.8
+x1.x6.x1.net47                             1.8
+x1.x6.x1.xr31.x0.t1                        1.8
+x1.x6.x1.xr31.x0.t2                        1.8
+x1.x6.x1.xr34.x0.t1                        1.8
+x1.x6.x1.xr34.x0.t2                        1.8
+x1.x6.x1.net14                     3.96026e-07
+x1.x6.x1.net13                     2.23398e-10
+vout                                  0.586928
+x1.x6.xr1.x0.t1                       0.586678
+x1.x6.xr1.x0.t2                       0.479638
+x1.x4.net1                             0.50164
+x1.x4.v_mir                             1.1523
+x1.x4.net2                                 1.8
+x1.v_mir_out                          0.704142
+x1.x4.x1.xr1.x0.t1                 0.000124615
+x1.x4.x1.xr1.x0.t2                   0.0998582
+x1.x4.x1.net2                        0.0999941
+x1.x4.x1.net3                              1.8
+x1.x4.x1.net1                         0.556539
+x1.x4.x1.x1.net2                      0.223651
+x1.x4.x1.x1.net8                      0.758012
+x1.x4.x1.x1.vbn_casc                  0.940594
+x1.x4.x1.x1.net1                       0.22011
+x1.x4.x1.x1.net5                      0.732456
+x1.x4.x1.x1.vbp_casc                  0.588411
+x1.x4.x1.x1.net4                       1.56505
+x1.x4.x1.x1.net3                        1.5697
+x1.x4.x1.x1.net6                   3.05232e-06
+x1.x4.x1.x1.net7                      0.759692
+x1.x4.x1.x1.net9                       0.64071
+x1.x4.x1.x1.net16                    0.0166553
+x1.x4.x1.x1.net11                      1.74001
+x1.x4.x1.x1.net17                    0.0382678
+x1.x4.x1.x1.net18                    0.0579451
+x1.x4.x1.x1.net10                      1.66118
+x1.x4.x1.x1.net19                    0.0815824
+x1.x4.x1.x1.net20                      0.10941
+x1.x4.x1.x1.net21                     0.142755
+x1.x4.x1.x1.net22                     0.188892
+x1.x4.x1.x1.en_b                   2.32246e-07
+x1.x4.x1.x1.vbp_top                    0.70165
+x1.x4.x1.x1.net12                    0.0467811
+x1.x4.x1.x1.net23                    0.0414898
+x1.x4.x1.x1.xr14.x0.t1               0.0415271
+x1.x4.x1.x1.xr14.x0.t2               0.0467421
+x1.x4.x1.x1.net24                    0.0361719
+x1.x4.x1.x1.xr15.x0.t1               0.0362089
+x1.x4.x1.x1.xr15.x0.t2               0.0414563
+x1.x4.x1.x1.net25                    0.0311359
+x1.x4.x1.x1.xr16.x0.t1               0.0311724
+x1.x4.x1.x1.xr16.x0.t2               0.0361349
+x1.x4.x1.x1.net26                    0.0260086
+x1.x4.x1.x1.xr17.x0.t1               0.0260463
+x1.x4.x1.x1.xr17.x0.t2               0.0310998
+x1.x4.x1.x1.net27                    0.0208102
+x1.x4.x1.x1.xr18.x0.t1               0.0208502
+x1.x4.x1.x1.xr18.x0.t2               0.0259716
+x1.x4.x1.x1.net28                    0.0153905
+x1.x4.x1.x1.xr19.x0.t1               0.0154266
+x1.x4.x1.x1.xr19.x0.t2               0.0207725
+x1.x4.x1.x1.net29                    0.0102763
+x1.x4.x1.x1.xr20.x0.t1               0.0103149
+x1.x4.x1.x1.xr20.x0.t2               0.0153535
+x1.x4.x1.x1.net30                   0.00507622
+x1.x4.x1.x1.xr21.x0.t1              0.00511271
+x1.x4.x1.x1.xr21.x0.t2               0.0102427
+x1.x4.x1.x1.xr22.x0.t1             3.85373e-05
+x1.x4.x1.x1.xr22.x0.t2              0.00504057
+x1.x4.x1.x1.vstrp_ip                   1.78641
+x1.x4.x1.x1.net31                     0.748444
+x1.x4.x1.x1.net32                     0.603085
+x1.x4.x1.x1.net33                     0.493682
+x1.x4.x1.x1.net34                     0.401417
+x1.x4.x1.x1.net35                     0.320853
+x1.x4.x1.x1.net36                     0.247336
+x1.x4.x1.x1.net37                     0.179309
+x1.x4.x1.x1.net38                      0.11594
+x1.x4.x1.x1.net39                    0.0564009
+x1.x4.x1.x1.vstrp_out                      1.8
+x1.x4.x1.x1.net15                          1.8
+x1.x4.x1.x1.net40                          1.8
+x1.x4.x1.x1.xr24.x0.t1                     1.8
+x1.x4.x1.x1.xr24.x0.t2                     1.8
+x1.x4.x1.x1.net41                          1.8
+x1.x4.x1.x1.xr25.x0.t1                     1.8
+x1.x4.x1.x1.xr25.x0.t2                     1.8
+x1.x4.x1.x1.net42                          1.8
+x1.x4.x1.x1.xr26.x0.t1                     1.8
+x1.x4.x1.x1.xr26.x0.t2                     1.8
+x1.x4.x1.x1.net43                          1.8
+x1.x4.x1.x1.xr27.x0.t1                     1.8
+x1.x4.x1.x1.xr27.x0.t2                     1.8
+x1.x4.x1.x1.net44                          1.8
+x1.x4.x1.x1.xr28.x0.t1                     1.8
+x1.x4.x1.x1.xr28.x0.t2                     1.8
+x1.x4.x1.x1.net45                          1.8
+x1.x4.x1.x1.xr29.x0.t1                     1.8
+x1.x4.x1.x1.xr29.x0.t2                     1.8
+x1.x4.x1.x1.net46                          1.8
+x1.x4.x1.x1.xr30.x0.t1                     1.8
+x1.x4.x1.x1.xr30.x0.t2                     1.8
+x1.x4.x1.x1.net47                          1.8
+x1.x4.x1.x1.xr31.x0.t1                     1.8
+x1.x4.x1.x1.xr31.x0.t2                     1.8
+x1.x4.x1.x1.xr34.x0.t1                     1.8
+x1.x4.x1.x1.xr34.x0.t2                     1.8
+x1.x4.x1.x1.net14                  3.40569e-07
+x1.x4.x1.x1.net13                  9.01818e-11
+x1.net1                                0.47334
+x1.net2                               0.745043
+x1.net4                               0.689505
+x1.net3                               0.652359
+v.x1.x4.vmeas#branch               1.32749e-06
+v.x1.x4.x1.vmeas#branch            1.98184e-06
+vvt0#branch                             -7e-13
+vin#branch                              -1e-13
+vrst_n#branch                         -1.8e-12
+vclk#branch                                  0
+vena#branch                           -1.8e-12
+vuio3#branch                          -1.8e-12
+vuio2#branch                          -1.8e-12
+vuio1#branch                          -1.8e-12
+vuio0#branch                          -1.8e-12
+vui7#branch                                  0
+vui6#branch                                  0
+vui5#branch                                  0
+vui4#branch                                  0
+vui3#branch                                  0
+vui2#branch                                  0
+vui1#branch                                  0
+vui0#branch                                  0
+vsystem_gnd#branch                 3.73997e-06
+vdpwr#branch                          -1.8e-12
+vgnd_comp#branch                   2.65893e-06
+vdd_comp#branch                   -5.50018e-07
+vdd_analog#branch                 -7.21735e-05
+
+ Reference value :  0.00000e+00 Reference value :  2.40000e-08 Reference value :  1.92000e-07 Reference value :  1.53600e-06 Reference value :  5.13600e-06 Reference value :  8.73600e-06 Reference value :  1.35360e-05 Reference value :  1.71360e-05 Reference value :  2.00000e-05 Reference value :  2.03000e-05 Reference value :  2.05393e-05 Reference value :  2.10000e-05 Reference value :  2.12329e-05 Reference value :  2.15262e-05 Reference value :  2.18853e-05 Reference value :  2.22796e-05 Reference value :  2.27957e-05 Reference value :  2.34691e-05 Reference value :  2.39911e-05 Reference value :  2.55935e-05 Reference value :  2.91935e-05 Reference value :  3.27935e-05 Reference value :  3.63935e-05 Reference value :  3.93967e-05 Reference value :  4.00680e-05 Reference value :  4.03416e-05 Reference value :  4.07085e-05 Reference value :  4.11121e-05 Reference value :  4.13962e-05 Reference value :  4.20365e-05 Reference value :  4.25368e-05 Reference value :  4.38970e-05 Reference value :  4.74970e-05 Reference value :  5.22970e-05 Reference value :  5.58970e-05 Reference value :  5.91485e-05
+No. of Data Rows : 89
+Note: Simulation executed from .control section 

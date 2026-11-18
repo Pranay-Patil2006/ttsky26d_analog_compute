@@ -1,0 +1,36 @@
+# Local xschemrc for sky130 design
+# This file ensures xschem opens seamlessly without passing CLI arguments.
+
+if { [info exists env(PDK_ROOT)] } {
+    set PDK_ROOT $env(PDK_ROOT)
+} else {
+    set PDK_ROOT /foss/pdks
+}
+
+set PDK sky130A
+
+# Source the standard sky130 PDK xschemrc
+if {[file exists $PDK_ROOT/$PDK/libs.tech/xschem/xschemrc]} {
+    source $PDK_ROOT/$PDK/libs.tech/xschem/xschemrc
+} else {
+    puts "Warning: PDK xschemrc not found. Make sure PDK_ROOT is set correctly."
+}
+
+# Convenience Settings
+# Append current directory to the library path for easy symbol access
+append XSCHEM_LIBRARY_PATH :[file dirname [info script]]
+
+# Define and create a neat directory for generated netlists
+set netlist_dir [pwd]/netlists
+if {![file exists $netlist_dir]} {
+    file mkdir $netlist_dir
+}
+
+# Define and create a neat directory for simulation results
+set results_dir [pwd]/results
+if {![file exists $results_dir]} {
+    file mkdir $results_dir
+}
+
+# Quality of Life Tweaks
+set scale_fonts 1.2

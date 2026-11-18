@@ -1,0 +1,106 @@
+{
+  "simulation": "Monte Carlo Statistical Variation Analysis (Restored 6-pin Netlist)",
+  "design": "tt_um_ttsky26d_analog_compute",
+  "pdk": "SkyWater sky130A (combined/sky130.lib.spice tt_mm)",
+  "netlist": "/foss/designs/ttsky26d_analog_compute/xschem/netlists/tt_um_ttsky26d_analog_compute.subckt.spice",
+  "analog_interface": {
+    "ua0": "vdd_analog (1.8V)",
+    "ua1": "vdd_comp (1.8V, dedicated core power sense)",
+    "ua2": "vout (analog output)",
+    "ua3": "vin (analog input sweep 0.1 to 0.7V)",
+    "ua4": "gnd_comp (dedicated core ground)",
+    "ua5": "vt0 (0.7V core gate bias)",
+    "VDPWR": "1.8V (digital supply)",
+    "VGND": "0V (system ground)",
+    "VAPWR": "0V (noconn)"
+  },
+  "runs_total": 55,
+  "runs_successful": 51,
+  "yield_percent": 92.73,
+  "monte_carlo_stats": {
+    "Vout_0.1V": {
+      "mean": 0.5999,
+      "std": 0.0108,
+      "min": 0.5827,
+      "max": 0.6266,
+      "minus_3sigma": 0.5675,
+      "plus_3sigma": 0.6323,
+      "unit": "V"
+    },
+    "Vout_0.3V": {
+      "mean": 0.8537,
+      "std": 0.0256,
+      "min": 0.8069,
+      "max": 0.9205,
+      "minus_3sigma": 0.7769,
+      "plus_3sigma": 0.9306,
+      "unit": "V"
+    },
+    "Vout_0.5V": {
+      "mean": 1.1493,
+      "std": 0.0404,
+      "min": 1.0697,
+      "max": 1.2511,
+      "minus_3sigma": 1.0282,
+      "plus_3sigma": 1.2705,
+      "unit": "V"
+    },
+    "k0": {
+      "mean": 0.4887,
+      "std": 0.0049,
+      "min": 0.4796,
+      "max": 0.5013,
+      "minus_3sigma": 0.4741,
+      "plus_3sigma": 0.5034,
+      "std_percent": 1.00,
+      "unit": "V"
+    },
+    "k1": {
+      "mean": 1.0598,
+      "std": 0.0849,
+      "min": 0.9245,
+      "max": 1.2853,
+      "minus_3sigma": 0.8050,
+      "plus_3sigma": 1.3145,
+      "std_percent": 8.01,
+      "unit": "V/V"
+    },
+    "k2": {
+      "mean": 0.5229,
+      "std": 0.0515,
+      "min": 0.4281,
+      "max": 0.6478,
+      "minus_3sigma": 0.3684,
+      "plus_3sigma": 0.6773,
+      "std_percent": 9.85,
+      "unit": "V/V^2"
+    },
+    "Pcomp_0.1V_uW": {
+      "mean": 1.0877,
+      "std": 0.0768,
+      "min": 0.9291,
+      "max": 1.2760,
+      "minus_3sigma": 0.8574,
+      "plus_3sigma": 1.3180,
+      "unit": "uW"
+    },
+    "Pcomp_0.3V_uW": {
+      "mean": 3.3005,
+      "std": 0.1583,
+      "min": 2.9617,
+      "max": 3.7060,
+      "minus_3sigma": 2.8257,
+      "plus_3sigma": 3.7753,
+      "unit": "uW"
+    },
+    "Pcomp_0.5V_uW": {
+      "mean": 5.6996,
+      "std": 0.2331,
+      "min": 5.1817,
+      "max": 6.2801,
+      "minus_3sigma": 5.0003,
+      "plus_3sigma": 6.3988,
+      "unit": "uW"
+    }
+  }
+}

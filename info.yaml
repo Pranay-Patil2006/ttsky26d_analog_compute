@@ -1,18 +1,18 @@
 # Tiny Tapeout project information
 project:
   title:        "ttsky26d_analog_compute"      # Project title
-  author:       "Pranay Arvind Patil, Aditya Baderia and Nithin Purushothama, Madhav Pathak"      # Your name
-  discord:      "psquare9898"      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  "Evaluation of polynomial using translinear circuit"      # One line description of what your project does
-  language:     "Analog" # other examples include Verilog, Amaranth, VHDL, etc
-  clock_hz:     0       # Clock frequency in Hz (or 0 if not applicable)
+  author:       "Pranay Arvind Patil, Aditya Baderia, Nithin Purushothama, Madhav Pathak"      # Your name
+  discord:      "psquare9898"      # Your discord username
+  description:  "Analog translinear polynomial compute core evaluating Vout = vref + R*(c + b*Vin + a*Vin^2)"      # Description
+  language:     "Analog"
+  clock_hz:     0
 
   # How many tiles your design occupies? A single tile is about 167x108 uM.
   tiles: "2x2"          # Valid values for analog projects: 1x2, 2x2
 
   # How many analog pins does your project use?
   analog_pins: 6        # Valid values: 0 to 6
-  uses_vapwr: true       # Set to true if your project uses second analog power supply (VAPWR) in addition to 1.8V (VDPWR)
+  uses_vapwr: false     # 1.8V-only design (tt_analog_2x2.def); VAPWR not used
 
   # Your top module name must start with "tt_um_". Make it unique by including your github username:
   top_module:  "tt_um_ttsky26d_analog_compute"
@@ -22,45 +22,45 @@ project:
     - "project.v"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
-# This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
+# This section is for the datasheet/website. Use descriptive names.
 pinout:
-  # Inputs
-  ui[0]: ""
-  ui[1]: ""
-  ui[2]: ""
-  ui[3]: ""
-  ui[4]: ""
-  ui[5]: ""
-  ui[6]: ""
-  ui[7]: ""
+  # Inputs: 4-bit active-low IDAC control codes (0 = ON, 1 = OFF)
+  ui[0]: "code_a[0] (ix_lin linear gain DAC, bit 0 LSB, active-low)"
+  ui[1]: "code_a[1] (ix_lin linear gain DAC, bit 1, active-low)"
+  ui[2]: "code_a[2] (ix_lin linear gain DAC, bit 2, active-low)"
+  ui[3]: "code_a[3] (ix_lin linear gain DAC, bit 3 MSB, active-low)"
+  ui[4]: "code_b[0] (iy_sq squarer bias DAC, bit 0 LSB, active-low)"
+  ui[5]: "code_b[1] (iy_sq squarer bias DAC, bit 1, active-low)"
+  ui[6]: "code_b[2] (iy_sq squarer bias DAC, bit 2, active-low)"
+  ui[7]: "code_b[3] (iy_sq squarer bias DAC, bit 3 MSB, active-low)"
 
-  # Outputs
-  uo[0]: ""
-  uo[1]: ""
-  uo[2]: ""
-  uo[3]: ""
-  uo[4]: ""
-  uo[5]: ""
-  uo[6]: ""
-  uo[7]: ""
+  # Outputs: Unused
+  uo[0]: "unused"
+  uo[1]: "unused"
+  uo[2]: "unused"
+  uo[3]: "unused"
+  uo[4]: "unused"
+  uo[5]: "unused"
+  uo[6]: "unused"
+  uo[7]: "unused"
 
-  # Bidirectional pins
-  uio[0]: ""
-  uio[1]: ""
-  uio[2]: ""
-  uio[3]: ""
-  uio[4]: ""
-  uio[5]: ""
-  uio[6]: ""
-  uio[7]: ""
+  # Bidirectional pins: lower nibble is code_c (offset DAC); upper nibble unused
+  uio[0]: "code_c[0] (const_curr offset DAC, bit 0 LSB, active-low)"
+  uio[1]: "code_c[1] (const_curr offset DAC, bit 1, active-low)"
+  uio[2]: "code_c[2] (const_curr offset DAC, bit 2, active-low)"
+  uio[3]: "code_c[3] (const_curr offset DAC, bit 3 MSB, active-low)"
+  uio[4]: "unused"
+  uio[5]: "unused"
+  uio[6]: "unused"
+  uio[7]: "unused"
 
   # Analog pins - make sure to also set "analog_pins" above, else the pins won't be connected
-  ua[0]: "vin"
-  ua[1]: "vout"
-  ua[2]: "dummy"
-  ua[3]: "dummy"
-  ua[4]: "dummy"
-  ua[5]: "dummy"
+  ua[0]: "vdd (1.8V analog supply for IDACs, OTAs, and current mirrors)"
+  ua[1]: "vdd_comp (dedicated compute block VDD to measure core power)"
+  ua[2]: "out (analog polynomial output voltage Vout from I_V_conv)"
+  ua[3]: "in (analog input voltage Vin into V_I_complete, 0.1V to 0.7V)"
+  ua[4]: "gnd_comp (dedicated compute block GND so other circuits don't load power measurements)"
+  ua[5]: "vt0 (~0.7V external gate bias reference for translinear core)"
 
 # Do not change!
 yaml_version: 6

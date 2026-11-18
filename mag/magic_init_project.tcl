@@ -18,7 +18,7 @@ set POWER_STRIPES {
     VGND  4um
 }
 # If you use the 3v3 template, uncomment the line below:
-lappend POWER_STRIPES VAPWR 7um
+# lappend POWER_STRIPES VAPWR 7um   ;# not used: 1.8V-only design
 
 # Read in the pin positions
 # -------------------------

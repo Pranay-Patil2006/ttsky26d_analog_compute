@@ -1,0 +1,27 @@
+* PVT Simulation: Corner sf, VDD = 1.80V, Temp = 27C
+.lib /foss/pdks/sky130A/libs.tech/combined/sky130.lib.spice sf
+.include /foss/designs/ttsky26d_analog_compute/xschem/netlists/tt_um_ttsky26d_analog_compute.subckt.spice
+.options method=gear savecurrents rshunt=1e12
+.temp 27
+.nodeset v(x1.mn_tail_bias)=0.48 v(x1.net1)=0.48 v(vout)=0.6 v(x1.x1_i_v_out)=0.48 v(x1.v_mir_out)=1.2
+
+Vdd_a ua0 0 1.80
+Vdd_c ua1 0 1.80
+Vgnd_c ua4 0 0
+Vdpwr VDPWR 0 1.80
+Vsys_gnd VGND 0 0
+Vin ua3 0 pwl(0 0.1 1m 0.7)
+Vvt0 ua5 0 0.70
+
+Vui0 ui0 0 0
+Vui4 ui4 0 0
+Vuio uio0 0 1.80
+
+X1 ui4 ui4 ui4 ui4 uio0 uio0 uio0 uio0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ua4 ua5 ui0 ui0 ui0 ui0 VDPWR ua3 ua1 ua0 0 VGND vout tt_um_ttsky26d_analog_compute
+
+.control
+save v(ua3) v(vout) v(x1.mn_tail_bias) v(x1.x1_i_v_out) v(x1.v_mir_out) i(Vdd_a) i(Vdd_c) i(Vgnd_c) i(Vsys_gnd) i(Vin) i(Vvt0) @m.x1.xm1.msky130_fd_pr__pfet_01v8[id] @m.x1.xm2.msky130_fd_pr__pfet_01v8[id] @m.x1.xm18.msky130_fd_pr__pfet_01v8[id] @m.x1.xm6.msky130_fd_pr__nfet_01v8[id] @m.x1.xm11.msky130_fd_pr__nfet_01v8[id] @m.x1.xm10.msky130_fd_pr__nfet_01v8[id] @m.x1.xm9.msky130_fd_pr__nfet_01v8[id]
+tran 2u 1m
+wrdata /foss/designs/ttsky26d_analog_compute/tb/pvt/pvt_sf_v1.80_t27.txt v(ua3) v(vout) i(Vdd_a) i(Vdd_c) i(Vgnd_c) i(Vsys_gnd) i(Vin) i(Vvt0) @m.x1.xm1.msky130_fd_pr__pfet_01v8[id] @m.x1.xm2.msky130_fd_pr__pfet_01v8[id] @m.x1.xm18.msky130_fd_pr__pfet_01v8[id] @m.x1.xm6.msky130_fd_pr__nfet_01v8[id] @m.x1.xm11.msky130_fd_pr__nfet_01v8[id] @m.x1.xm10.msky130_fd_pr__nfet_01v8[id] @m.x1.xm9.msky130_fd_pr__nfet_01v8[id] v(x1.mn_tail_bias) v(x1.x1_i_v_out)
+.endc
+.end

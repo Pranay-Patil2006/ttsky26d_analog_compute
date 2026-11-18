@@ -1,0 +1,71 @@
+* Testbench for tt_um_ttsky26d_analog_compute (Restored 6-pin Analog Interface)
+* Circuit: tt_um_ttsky26d_analog_compute
+* Verified for SkyWater 130nm (sky130A)
+.lib /foss/pdks/sky130A/libs.tech/combined/sky130.lib.spice tt
+.include ../xschem/netlists/tt_um_ttsky26d_analog_compute.subckt.spice
+
+.options method=gear
+.param VDD_VAL = 1.8
+.param VT0_VAL = 0.70
+
+* Power rails & sense voltage sources (0V drops for current/power monitoring)
+Vdd_analog vdd_analog 0 {VDD_VAL}
+Vdd_comp   vdd_comp   0 {VDD_VAL}
+Vgnd_comp  gnd_comp   0 0
+Vdpwr      VDPWR      0 {VDD_VAL}
+Vsystem_gnd VGND      0 0
+
+* Digital Controls
+* ui[0:3] = code_a = 0000 (linear gain DAC ON, active-low)
+* ui[4:7] = code_b = 0000 (squarer bias DAC ON, active-low)
+* uio[0:3] = code_c = 1111 (offset DAC OFF, active-low)
+Vui0 ui0 0 0
+Vui1 ui1 0 0
+Vui2 ui2 0 0
+Vui3 ui3 0 0
+Vui4 ui4 0 0
+Vui5 ui5 0 0
+Vui6 ui6 0 0
+Vui7 ui7 0 0
+
+Vuio0 uio0 0 {VDD_VAL}
+Vuio1 uio1 0 {VDD_VAL}
+Vuio2 uio2 0 {VDD_VAL}
+Vuio3 uio3 0 {VDD_VAL}
+
+* Control lines
+Vena   ena   0 {VDD_VAL}
+Vclk   clk   0 0
+Vrst_n rst_n 0 {VDD_VAL}
+
+* Analog I/O
+* ua[3] = in: Vin input sweep 0.1V to 0.7V
+Vin vin 0 pwl(0 0.1 1m 0.7)
+* ua[5] = vt0: reference voltage (0.70V)
+Vvt0 vt0 0 {VT0_VAL}
+
+* Device under test: tt_um_ttsky26d_analog_compute
+* Port order:
+* ui[4] ui[5] ui[6] ui[7] uio[0] uio[1] uio[2] uio[3] uio[4] uio[5] uio[6] uio[7]
+* uo[0] uo[1] uo[2] uo[3] uo[4] uo[5] uo[6] uo[7] clk rst_n ena ua[4] ua[5]
+* ui[0] ui[3] ui[1] ui[2] VDPWR ua[3] ua[1] ua[0] VAPWR VGND ua[2]
+X1 ui4 ui5 ui6 ui7
++  uio0 uio1 uio2 uio3 0 0 0 0
++  uo0 uo1 uo2 uo3 uo4 uo5 uo6 uo7
++  clk rst_n ena
++  gnd_comp vt0
++  ui0 ui3 ui1 ui2
++  VDPWR
++  vin vdd_comp vdd_analog
++  0 VGND
++  vout
++  tt_um_ttsky26d_analog_compute
+
+.control
+save v(vin) v(vout) v(vt0) v(vdd_comp) v(vdd_analog) i(Vdd_comp) i(Vdd_analog) i(Vgnd_comp)
+tran 2u 1m
+wrdata tb_result.txt v(vin) v(vout) i(Vdd_comp)
+print v(vout)[0] v(vout)[500] i(Vdd_comp)[0] i(Vdd_comp)[500]
+.endc
+
+.end

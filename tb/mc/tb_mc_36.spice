@@ -1,0 +1,56 @@
+* Monte Carlo Run Seed 36 (Restored Netlist)
+.lib /foss/pdks/sky130A/libs.tech/combined/sky130.lib.spice tt_mm
+.include /foss/designs/ttsky26d_analog_compute/xschem/netlists/tt_um_ttsky26d_analog_compute.subckt.spice
+.options method=gear itl1=500 rshunt=1e12
+.nodeset v(x1.mn_tail_bias)=0.48 v(x1.net1)=0.48 v(vout)=0.6 v(x1.x1_i_v_out)=0.48 v(x1.v_mir_out)=1.2
+.option seed=36
+
+* Power rails & sense sources
+Vdd_analog vdd_analog 0 1.8
+Vdd_comp   vdd_comp   0 1.8
+Vgnd_comp  gnd_comp   0 0
+Vdpwr      VDPWR      0 1.8
+Vsystem_gnd VGND      0 0
+
+* Controls
+Vui0 ui0 0 0
+Vui1 ui1 0 0
+Vui2 ui2 0 0
+Vui3 ui3 0 0
+Vui4 ui4 0 0
+Vui5 ui5 0 0
+Vui6 ui6 0 0
+Vui7 ui7 0 0
+
+Vuio0 uio0 0 1.8
+Vuio1 uio1 0 1.8
+Vuio2 uio2 0 1.8
+Vuio3 uio3 0 1.8
+
+Vena   ena   0 1.8
+Vclk   clk   0 0
+Vrst_n rst_n 0 1.8
+
+* Analog stimulus
+Vin vin 0 pwl(0 0.1 20u 0.1 21u 0.3 40u 0.3 41u 0.5 60u 0.5)
+Vvt0 vt0 0 0.70
+
+X1 ui4 ui4 ui4 ui4
++  uio0 uio0 uio0 uio0 0 0 0 0
++  uo0 uo1 uo2 uo3 uo4 uo5 uo6 uo7
++  clk rst_n ena
++  gnd_comp vt0
++  ui0 ui0 ui0 ui0
++  VDPWR
++  vin vdd_comp vdd_analog
++  0 VGND
++  vout
++  tt_um_ttsky26d_analog_compute
+
+.control
+set rndseed = 36
+save v(vin) v(vout) i(Vdd_comp)
+tran 2u 60u
+wrdata /foss/designs/ttsky26d_analog_compute/tb/mc/mc_run_36.txt v(vin) v(vout) i(Vdd_comp)
+.endc
+.end
