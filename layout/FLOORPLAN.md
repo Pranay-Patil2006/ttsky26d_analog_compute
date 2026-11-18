@@ -81,7 +81,7 @@ remaining compaction targets are the IDAC (layout/gate ratio 4.5) and the core b
 | x_idac_c / x_idac_b / x_idac_a | idac_universal | (8, 153) / (90, 153) / (172, 153) | 79.8 × 63.5 each |
 | x_aux | aux (bias tree, Vin mirror, V_I/V_I_complete MOS) | (8.0, 109.0) | 135.4 × 42.5 |
 | x_ota_vi / x_ota_iv | OTA IP | (230, 3) / (230, 54) | 87.1 × 47.2 each |
-| x_pas | passives (2 MIM, 2 xhigh_po, I_V pfet) | (230, 106) | 62.2 × ~42 |
+| x_pas | passives (2 MIM, 2 xhigh_po, I_V pfet) | (230, 106) | 67.9 × 41.4 |
 
 Signoff: full-chip magic DRC 0 · full-chip netgen LVS **Circuits match uniquely** · TT precheck pass (local + CI).
 Routing: `layout/top/route.py` (met3/met4 grid router), 36 nets, 4 met4 power stripes (VDPWR x=1 and 327, VGND x=4 and 330.5).
