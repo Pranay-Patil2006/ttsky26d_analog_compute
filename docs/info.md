@@ -70,9 +70,9 @@ To enable precise power characterization of the analog compute core without inte
 4. **Sweep Input:**
    - Apply a slow DC sweep or ramp on `ua[3]` (`in`) from $0.1\,\text{V}$ to $0.7\,\text{V}$.
 5. **Observe Polynomial Output:**
-   - Measure `ua[2]` (`out`). Output should smoothly increase from $\approx 0.60\,\text{V}$ to $\approx 1.48\,\text{V}$ with an upward quadratic curvature ($k_1 \approx 1.06$, $k_2 \approx 0.52$).
+   - Measure `ua[2]` (`out`). Output should smoothly increase from $\approx 0.60\,\text{V}$ to $\approx 1.48\,\text{V}$ with an upward quadratic curvature ($k_1 \approx 1.07$, $k_2 \approx 0.50$; post-layout simulation 0.600 V → 1.477 V).
 6. **Measure Core Power:**
    - Measure the DC current $I(ua[1])$ through `ua[1]` across the input sweep; core power is $P_{comp} = 1.8\,\text{V} \cdot I(ua[1])$.
 7. **Verify Digital Control:**
-   - Change `ui[3:0]` from `0000` to `1111` and verify the linear slope $k_1$ attenuates from $\approx 1.06$ down to $\approx 0.22$.
-   - Change `uio[3:0]` from `1111` to `0000` and verify output offset $k_0$ shifts up by $\approx 0.28\,\text{V}$.
+   - Change `ui[3:0]` from `0000` to `1111` and verify the linear slope $k_1$ attenuates (simulated: $\approx 1.07$ at `0000`, $\approx 0.30$ at `1110`; `1111` was not simulated).
+   - Change `uio[3:0]` from `1111` to `0000` and verify output offset $k_0$ shifts up by $\approx 0.27\,\text{V}$ (simulated 0.486 V → 0.754 V). Note: with `uio[3:0]=0000` the output saturates at $\approx 1.64\,\text{V}$ for $V_{in} \gtrsim 0.62\,\text{V}$.

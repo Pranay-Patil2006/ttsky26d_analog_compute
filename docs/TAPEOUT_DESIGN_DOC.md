@@ -1,4 +1,10 @@
 # Tapeout Design Documentation & Verification Report
+
+> **SUPERSEDED (2026-11-18).** The numbers in this document predate the power-domain re-partition, the matched
+> re-layout and the post-layout verification. Several are wrong for the current design (core power, Monte Carlo
+> run count, "no FET mismatch", "clean settling without oscillation"). The verified status, including a **blocking
+> stability problem in the I→V loop**, is in [LAYOUT_VERIFICATION_REPORT.md](LAYOUT_VERIFICATION_REPORT.md).
+
 **Project:** `ttsky26d_analog_compute`  
 **Top Module:** `tt_um_ttsky26d_analog_compute`  
 **Process:** SkyWater 130nm CMOS (`sky130A`)  

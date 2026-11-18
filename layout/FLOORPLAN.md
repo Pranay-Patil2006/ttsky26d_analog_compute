@@ -73,19 +73,9 @@ remaining compaction targets are the IDAC (layout/gate ratio 4.5) and the core b
 5. top-level bias tree + Vin mirror as one `bias` cell
 6. top assembly: place cells, met4 routing, stripes, top-level DRC/LVS against the full netlist, PEX + re-sim
 
-## Status 2026-11-18 — full chip done (commit e9b1c7c)
+## Status 2026-11-18 (current)
 
-| Instance | Cell | Placed at (lower-left, µm) | Size (µm) |
-|---|---|---|---|
-| x_core | combined | (8.0, 3.0) | 204.3 × 104.2 |
-| x_idac_c / x_idac_b / x_idac_a | idac_universal | (8, 153) / (90, 153) / (172, 153) | 79.8 × 63.5 each |
-| x_aux | aux (bias tree, Vin mirror, V_I/V_I_complete MOS) | (8.0, 109.0) | 135.4 × 42.5 |
-| x_ota_vi / x_ota_iv | OTA IP | (230, 3) / (230, 54) | 87.1 × 47.2 each |
-| x_pas | passives (2 MIM, 2 xhigh_po, I_V pfet) | (230, 106) | 67.9 × 41.4 |
-
-Signoff: full-chip magic DRC 0 · full-chip netgen LVS **Circuits match uniquely** · TT precheck pass (local + CI).
-Routing: `layout/top/route.py` (met3/met4 grid router), 36 nets, 4 met4 power stripes (VDPWR x=1 and 327, VGND x=4 and 330.5).
-Rebuild: `python3 layout/top/route.py && (cd mag && magic -dnull -noconsole -rcfile $PDK_ROOT/sky130A/libs.tech/magic/sky130A.magicrc build_top_routed.tcl) && layout/top/lvs_top.sh && layout/scripts/precheck_local.sh`
-
-Open items: PEX + post-layout re-simulation; antenna check; supply straps are 0.4 µm met4 (fine for the
-≤110 µA supplies on thick met4, but can be widened); uo_out/uio_out/uio_oe are left unconnected (TT recommends tying them low).
+Superseded placement details above. Current placement, sizes, matching (unit-cell common-centroid core per
+`image_2026-11-18_213522026.png`), signoff and post-layout results: **docs/LAYOUT_VERIFICATION_REPORT.md** (tables
+T2 and §3). Signoff: full-chip magic DRC 0, LVS match, antenna 0, TT precheck pass. **Blocking:** the I→V loop
+oscillates (report §4.3).

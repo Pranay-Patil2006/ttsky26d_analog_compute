@@ -8,6 +8,11 @@ $$V_{out}(V_{in}) \approx k_0 + k_1 V_{in} + k_2 V_{in}^2$$
 
 ---
 
+
+> **Status (2026-11-18): layout complete (DRC 0, LVS match, antenna 0, TT precheck pass), but NOT tape-out ready —
+> the I→V (TIA) loop oscillates at ≈ 4.4 MHz in both schematic and post-layout simulation.** Details and the fix
+> candidates tested: [docs/LAYOUT_VERIFICATION_REPORT.md §4.3](docs/LAYOUT_VERIFICATION_REPORT.md).
+
 ## 1. Design Overview
 
 The computing core evaluates non-linear polynomial functions using MOS translinear loops operating in weak and moderate inversion:
@@ -25,9 +30,8 @@ To enable sub-microwatt measurement of the translinear computing core without in
 - **`VGND`:** Common ground for auxiliary circuits, IDAC internal mirrors, core output stage, and all NMOS bodies (p-substrate).
 - **`ua[0]` (`vdd_idac`):** 1.8V supply for the three IDACs only, I(ua[0]) measures IDAC power.
 - **`ua[1]` (`vdd_comp`):** 1.8V supply for the translinear compute core (loop diodes and core output mirrors), I(ua[1]) measures core supply power.
-  - Core power is **$1.09\,\mu\text{W}$ to $8.26\,\mu\text{W}$** across $V_{in} \in [0.10\,\text{V}, 0.70\,\text{V}]$ ($3.29\,\mu\text{W}$ at $0.3\,\text{V}$).
-  - Core power represents only **0.86% to 2.74%** of total analog power; auxiliary OTAs and bias ladders draw $125\,\mu\text{W}$ to $294\,\mu\text{W}$.
-  - Dedicating `ua[1]` allows direct nano-watt power characterization using an off-chip source measure unit (SMU) or picoammeter, and suppresses test fixture switch IR drop to **$< 2.3\,\text{mV}$** ($< 0.13\%$).
+  - Measured in simulation (current design, tt 27 °C, see `docs/LAYOUT_VERIFICATION_REPORT.md` T5): I(ua[1]) = 5.1 → 42.7 µA, i.e. **9.1 → 76.8 µW**, for Vin = 0.1 → 0.7 V. I(ua[0]) (IDACs) = 15.5 µA; I(VDPWR) (auxiliary) = 49.6 → 109.6 µA.
+  - *Earlier versions of this README quoted 1.09–8.26 µW; that predates the power-domain re-partition (core output mirrors moved onto ua[1]) and is superseded.*
 - **`ua[2]` (`out`):** out (Vout).
 - **`ua[3]` (`in`):** in (Vin 0.1-0.7V).
 - **`ua[4]` (`gnd_comp`):** return of the translinear loop only, I(ua[4]) = total compute loop current.
@@ -46,35 +50,26 @@ To enable sub-microwatt measurement of the translinear computing core without in
 
 ---
 
-## 4. Polynomial Transfer Characteristics
+## 4. Polynomial Transfer Characteristics and Verification
 
-### 4.1 Nominal Transfer (TT, 1.80V, 27°C)
-Sweeping $V_{in}$ (`ua[3]`) from $0.10\,\text{V}$ to $0.70\,\text{V}$:
-$$V_{out}(V_{in}) = 0.4876 + 1.0601 \cdot V_{in} + 0.5196 \cdot V_{in}^2$$
+All values below are from simulations re-run for the current design and layout; the full tables, plots and the
+post-layout (PEX) comparison are in **[docs/LAYOUT_VERIFICATION_REPORT.md](docs/LAYOUT_VERIFICATION_REPORT.md)**.
 
-| $V_{in}$ (V) | $V_{out}$ (V) | $I(ua[1])$ (µA) | $P_{comp}$ (µW) | Region |
-| :---: | :---: | :---: | :---: | :--- |
-| **0.10** | 0.6000 | 0.60 | 1.09 | Linear/Quadratic (Offset) |
-| **0.20** | 0.7203 | 1.20 | 2.17 | Linear/Quadratic |
-| **0.30** | 0.8517 | 1.83 | 3.29 | Linear/Quadratic (Mid-scale) |
-| **0.40** | 0.9953 | 2.48 | 4.47 | Linear/Quadratic |
-| **0.50** | 1.1473 | 3.16 | 5.69 | Linear/Quadratic |
-| **0.60** | 1.3090 | 3.86 | 6.95 | Soft compression |
-| **0.70** | 1.4811 | 4.59 | 8.26 | Preserved headroom (>300 mV below VDD) |
+Nominal (tt, 1.80 V, 27 °C, code_a = code_b = 0000, code_c = 1111, vt0 = 0.7 V), least-squares fit over Vin = 0.1–0.7 V:
 
-### 4.2 Digital Coefficient Control (Active-Low: $0 = \text{ON}, 1 = \text{OFF}$)
-- **Code a (`ui[0:3]`):** Adjusts linear gain $k_1$ from $1.0601$ down to $0.2169$ (80% attenuation range).
-- **Code b (`ui[4:7]`):** Adjusts squarer denominator $I_y$, tuning $k_2$ from $0.5196$ up to $0.8861$.
-- **Code c (`uio[0:3]`):** Adjusts offset $k_0$ from $0.4876\,\text{V}$ up to $0.7552\,\text{V}$ with negligible cross-coupling.
+| | Vout@0.1 | Vout@0.3 | Vout@0.5 | Vout@0.7 | k0 | k1 | k2 |
+|---|---|---|---|---|---|---|---|
+| schematic | 0.6000 | 0.8521 | 1.1477 | 1.4811 | 0.4862 | 1.0706 | 0.5027 |
+| post-layout (PEX-RC) | 0.6001 | 0.8515 | 1.1460 | 1.4773 | 0.4857 | 1.0736 | 0.4916 |
 
----
-
-## 5. Verification & Sensitivity Highlights
-
-- **45/45 PVT Matrix:** 100% convergence across 5 corners (`tt`, `ff`, `ss`, `sf`, `fs`), 3 voltages ($1.62\,\text{V}, 1.80\,\text{V}, 1.98\,\text{V}$), and 3 temperatures ($-40^\circ\text{C}, +27^\circ\text{C}, +125^\circ\text{C}$). Zero output clipping observed across all 45 corners up to $V_{in} = 0.70\,\text{V}$.
-- **Monte Carlo (55 runs, `tt_mm`):** $92.7\%$ physical yield. Mean offset $k_0 = 0.4887\,\text{V} \pm 4.9\,\text{mV}$ ($1.0\%$ CV); mean linear gain $k_1 = 1.0598 \pm 0.0849\,\text{V/V}$; core power $P_{comp}(0.3\text{V}) = 3.30\,\mu\text{W} \pm 0.16\,\mu\text{W}$.
-- **Resistor Tracking:** On-chip matching between feedback resistor $R_{IV}$ and transconductance resistor $R_{VI}$ provides **99.95% common-mode rejection**, reducing linear gain sensitivity to process variations to **$-0.0005\,\%/\%$**.
-- **Reference Stability:** The internal `MN_TAIL_BIAS` voltage exhibits ultra-low supply sensitivity ($+4.23\,\text{mV/V}$ or $<0.88\%/\text{V}$) and stable thermal drift ($-0.775\,\text{mV/}^\circ\text{C}$).
+* Codes (active-low, 0 = on): code_a sets k1 from 1.07 (0000) to 0.30 (1110); code_b raises k2 (0.50 → 0.61 at 0011);
+  code_c raises k0 (0.49 → 0.75 at 0000). Strong code_b / code_c settings **saturate** the output at ≈ 1.61–1.64 V
+  inside the 0.1–0.7 V input range (e.g. code_b = 1110 from Vin ≈ 0.47 V).
+* Process corners (tt/ss/ff/sf/fs, 27 °C): Vout@0.7 = 1.458–1.496 V post-layout.
+* 500 Ω in series with ua[0], ua[1], ua[4] (TT pin path): Vout@0.7 shifts by −11.4 mV post-layout.
+* **Not re-verified for the current design:** Monte Carlo, temperature/supply PVT, resistor-tracking and reference
+  supply/thermal sensitivity figures that earlier versions of this README quoted (45/45 PVT matrix, 55-run MC,
+  99.95 % rejection, +4.23 mV/V, −0.775 mV/°C). They were obtained before the power re-partition and core re-layout.
 
 ---
 
