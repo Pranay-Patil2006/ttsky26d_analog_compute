@@ -1,0 +1,53 @@
+* NGSPICE file created from idac_universal.ext - technology: sky130A
+
+.subckt idac_universal VDD b1 b3 b2 b0 Vbranch GND out
+X0 net5 net5 GND GND sky130_fd_pr__nfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X1 Vbranch Vbranch VDD VDD sky130_fd_pr__pfet_01v8 ad=0.87 pd=6.58 as=0.435 ps=3.29 w=3 l=7
+X2 GND net5 net5 GND sky130_fd_pr__nfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X3 VDD net6 out VDD sky130_fd_pr__pfet_01v8 ad=0.87 pd=6.29 as=1.74 ps=12.58 w=6 l=14
+X4 VDD Vbranch net3 VDD sky130_fd_pr__pfet_01v8 ad=0.87 pd=6.58 as=0.435 ps=3.29 w=3 l=7
+X5 GND net5 net5 GND sky130_fd_pr__nfet_01v8 ad=0.87 pd=6.58 as=0.435 ps=3.29 w=3 l=7
+X6 net5 b3 net1 VDD sky130_fd_pr__pfet_01v8 ad=0.87 pd=6.58 as=0.87 ps=6.58 w=3 l=0.15
+X7 GND net5 net5 GND sky130_fd_pr__nfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X8 net3 Vbranch VDD VDD sky130_fd_pr__pfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X9 VDD Vbranch net4 VDD sky130_fd_pr__pfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X10 net5 net5 GND GND sky130_fd_pr__nfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X11 VDD net6 net6 VDD sky130_fd_pr__pfet_01v8 ad=0.87 pd=6.29 as=1.74 ps=12.58 w=6 l=14
+X12 VDD net6 net6 VDD sky130_fd_pr__pfet_01v8 ad=1.74 pd=12.58 as=0.87 ps=6.29 w=6 l=14
+X13 VDD Vbranch net1 VDD sky130_fd_pr__pfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X14 net1 Vbranch VDD VDD sky130_fd_pr__pfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X15 GND net5 net5 GND sky130_fd_pr__nfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X16 VDD Vbranch net1 VDD sky130_fd_pr__pfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X17 net6 net6 VDD VDD sky130_fd_pr__pfet_01v8 ad=0.87 pd=6.29 as=0.87 ps=6.29 w=6 l=14
+X18 net4 Vbranch VDD VDD sky130_fd_pr__pfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X19 net5 net5 GND GND sky130_fd_pr__nfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X20 net5 net5 GND GND sky130_fd_pr__nfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X21 net5 net5 GND GND sky130_fd_pr__nfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X22 net5 net5 GND GND sky130_fd_pr__nfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X23 net6 net5 GND GND sky130_fd_pr__nfet_01v8 ad=0.87 pd=6.58 as=0.435 ps=3.29 w=3 l=7
+X24 VDD net6 out VDD sky130_fd_pr__pfet_01v8 ad=1.74 pd=12.58 as=0.87 ps=6.29 w=6 l=14
+X25 GND net5 net5 GND sky130_fd_pr__nfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X26 out net6 VDD VDD sky130_fd_pr__pfet_01v8 ad=0.87 pd=6.29 as=0.87 ps=6.29 w=6 l=14
+X27 GND net5 net6 GND sky130_fd_pr__nfet_01v8 ad=0.435 pd=3.29 as=0.87 ps=6.58 w=3 l=7
+X28 net5 b2 net4 VDD sky130_fd_pr__pfet_01v8 ad=0.87 pd=6.58 as=0.87 ps=6.58 w=3 l=0.15
+X29 GND net5 net5 GND sky130_fd_pr__nfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X30 net1 Vbranch VDD VDD sky130_fd_pr__pfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X31 VDD Vbranch net1 VDD sky130_fd_pr__pfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X32 GND net5 net5 GND sky130_fd_pr__nfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X33 GND net5 net5 GND sky130_fd_pr__nfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X34 net5 b1 net3 VDD sky130_fd_pr__pfet_01v8 ad=0.87 pd=6.58 as=0.87 ps=6.58 w=3 l=0.15
+X35 VDD Vbranch net4 VDD sky130_fd_pr__pfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X36 net4 Vbranch VDD VDD sky130_fd_pr__pfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X37 GND net5 net5 GND sky130_fd_pr__nfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X38 net5 net5 GND GND sky130_fd_pr__nfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X39 GND net5 net5 GND sky130_fd_pr__nfet_01v8 ad=0.87 pd=6.58 as=0.435 ps=3.29 w=3 l=7
+X40 net5 net5 GND GND sky130_fd_pr__nfet_01v8 ad=0.435 pd=3.29 as=0.87 ps=6.58 w=3 l=7
+X41 net1 Vbranch VDD VDD sky130_fd_pr__pfet_01v8 ad=0.435 pd=3.29 as=0.87 ps=6.58 w=3 l=7
+X42 VDD Vbranch net2 VDD sky130_fd_pr__pfet_01v8 ad=0.435 pd=3.29 as=0.87 ps=6.58 w=3 l=7
+X43 net5 net5 GND GND sky130_fd_pr__nfet_01v8 ad=0.435 pd=3.29 as=0.87 ps=6.58 w=3 l=7
+X44 net5 b0 net2 VDD sky130_fd_pr__pfet_01v8 ad=0.87 pd=6.58 as=0.87 ps=6.58 w=3 l=0.15
+X45 net1 Vbranch VDD VDD sky130_fd_pr__pfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X46 VDD Vbranch net1 VDD sky130_fd_pr__pfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+X47 net5 net5 GND GND sky130_fd_pr__nfet_01v8 ad=0.435 pd=3.29 as=0.435 ps=3.29 w=3 l=7
+.ends
+

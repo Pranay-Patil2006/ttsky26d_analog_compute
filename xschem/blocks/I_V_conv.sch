@@ -47,5 +47,5 @@ model=res_xhigh_po_1p41
 spiceprefix=X
 mult=1}
 C {lab_wire.sym} 130 -240 0 0 {name=p8 sig_type=std_logic lab=GND}
-C {sky130_fd_pr/cap_mim_m3_2.sym} 60 -120 0 0 {name=C2 model=cap_mim_m3_2 W=22 L=22 MF=1 spiceprefix=X}
+C {sky130_fd_pr/cap_mim_m3_1.sym} 60 -120 0 0 {name=C2 model=cap_mim_m3_1 W=22 L=22 MF=1 spiceprefix=X}
 C {lab_wire.sym} 150 -30 0 0 {name=p6 sig_type=std_logic lab=VDD}

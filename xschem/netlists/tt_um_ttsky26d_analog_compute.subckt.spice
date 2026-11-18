@@ -213,7 +213,7 @@ x1 VDD VDD vref net1 i_in MN_TAIL_BIAS GND Rail_to_Rail_IP_OP_OTA_with_Intrenal_
 XM27 v_out net1 VDD VDD sky130_fd_pr__pfet_01v8 L=0.3 W=2 nf=1 ad=0.58 as=0.58 pd=4.58 ps=4.58 nrd=0.145 nrs=0.145 sa=0 sb=0 sd=0
 + mult=1
 XR1 v_out i_in GND sky130_fd_pr__res_xhigh_po_1p41 L=20 mult=1
-XC2 v_out net1 sky130_fd_pr__cap_mim_m3_2 W=22 L=22 MF=1
+XC2 v_out net1 sky130_fd_pr__cap_mim_m3_1 W=22 L=22 MF=1
 .ends
 
 

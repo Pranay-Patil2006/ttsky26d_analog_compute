@@ -55,11 +55,11 @@ pinout:
   uio[7]: "unused"
 
   # Analog pins - make sure to also set "analog_pins" above, else the pins won't be connected
-  ua[0]: "vdd (1.8V analog supply for IDACs, OTAs, and current mirrors)"
-  ua[1]: "vdd_comp (dedicated compute block VDD to measure core power)"
+  ua[0]: "vdd_idac (1.8V supply for the three IDACs only; I(ua[0]) = IDAC current)"
+  ua[1]: "vdd_comp (1.8V supply of the translinear compute core; I(ua[1]) = core supply current)"
   ua[2]: "out (analog polynomial output voltage Vout from I_V_conv)"
   ua[3]: "in (analog input voltage Vin into V_I_complete, 0.1V to 0.7V)"
-  ua[4]: "gnd_comp (dedicated compute block GND so other circuits don't load power measurements)"
+  ua[4]: "gnd_comp (return of the translinear loops only; I(ua[4]) = compute loop current)"
   ua[5]: "vt0 (~0.7V external gate bias reference for translinear core)"
 
 # Do not change!

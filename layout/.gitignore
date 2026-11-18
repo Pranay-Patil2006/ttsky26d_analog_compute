@@ -1,0 +1,5 @@
+*.ext
+_run.tcl
+netgen.log
+magic.log
+ref.spice
