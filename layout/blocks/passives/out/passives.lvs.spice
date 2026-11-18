@@ -1,0 +1,11 @@
+* NGSPICE file created from passives.ext - technology: sky130A
+
+.subckt passives vi_vmir vi_net1 VGND vi_net2 x1_i_v_out VDPWR ua2 iv_net1 ua2_uq0
++ ua2_uq1 iv_net1_uq0
+X0 ua2_uq1 x1_i_v_out VGND sky130_fd_pr__res_xhigh_po_1p41 l=20
+X1 ua2_uq0 iv_net1_uq0 sky130_fd_pr__cap_mim_m3_1 l=22 w=22
+X2 vi_net2 VGND VGND sky130_fd_pr__res_xhigh_po_1p41 l=34
+X3 ua2 iv_net1 VDPWR VDPWR sky130_fd_pr__pfet_01v8 ad=0.58 pd=4.58 as=0.58 ps=4.58 w=2 l=0.3
+X4 vi_vmir vi_net1 sky130_fd_pr__cap_mim_m3_1 l=22 w=22
+.ends
+

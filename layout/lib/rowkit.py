@@ -224,21 +224,25 @@ class Block:
         y0 = yr + 145 + RAIL_GAP
         x = x0
         segs = []
-        for (g, sn_, dn) in devs:
-            s = mos_short(lay, x, y0, kind, W, g, sn_, dn, head="top", tail=300)
+        for dv in devs:
+            g, sn_, dn = dv[:3]
+            s = mos_short(lay, x, y0, kind, W, g, sn_, dn, head="top", tail=300,
+                          L=dv[3] if len(dv) > 3 else 150)
             segs.append(s)
             x = s.tail[0] + 700
         x2 = x - 400
         tap_strip(lay, "p" if kind == "n" else "n", x0, x2, yr)
         self._rail(rail_net, x0, x2, yr)
         nets = []
-        for (g, sn_, dn) in devs:
+        for dv in devs:
+            g, sn_, dn = dv[:3]
             for n in (sn_, dn, g):
                 if n not in nets:
                     nets.append(n)
         ytop = segs[0].pcy + 85 + 300
         ty = {n: ytop + 400 + i * TP for i, n in enumerate(nets)}
-        for s, (g, sn_, dn) in zip(segs, devs):
+        for s, dv in zip(segs, devs):
+            g, sn_, dn = dv[:3]
             for n in (sn_, dn):
                 xs = strips_to_track(lay, s, n, ty[n])
                 self._track(n, ty[n], min(xs))
@@ -290,8 +294,12 @@ class Block:
                 lay.via1(x, y)
                 lay.via2(x, y)
                 ys[net].append(y)
+        ytop_all = max(max(v) for v in ys.values())
+        ybot_all = min(min(v) for v in ys.values())
         for n in nets:
             y1, y2 = min(ys[n]), max(ys[n])
+            if n in ports:              # ports span the block height: the top level can tap them anywhere
+                y1, y2 = ybot_all, ytop_all
             if y2 - y1 < 400:          # met3.6 min area on single-via buses
                 y2 = y1 + 400
             lay.vwire("metal3", busx[n], y1 - 200, y2 + 200, widths.get(n, M3_W))

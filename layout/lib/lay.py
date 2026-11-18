@@ -26,7 +26,7 @@ ORDER = [
     "locali", "viali",
     "metal1", "via1",
     "metal2", "via2",
-    "metal3", "via3",
+    "metal3", "via3", "mimcap", "mimcapcontact",
     "metal4",
 ]
 
@@ -349,10 +349,9 @@ def m2_track(lay, x1, x2, y, w=M2_W):
     lay.rect("metal2", min(x1, x2) - 160, y - w // 2, max(x1, x2) + 160, y + w // 2)
 
 
-def mos_short(lay, x0, y0, kind, W, gnet, s_net, d_net, head="top", tail=300, s_w=SD):
+def mos_short(lay, x0, y0, kind, W, gnet, s_net, d_net, head="top", tail=300, s_w=SD, L=150):
     """single finger L=0.15 device with dogbone poly contact and an li tail.
     strips: s_net (left), d_net (right).  Returns Seg with .tail=(x,y) li end point."""
-    L = 150
     diff = "ndiff" if kind == "n" else "pdiff"
     dc = "ndiffc" if kind == "n" else "pdiffc"
     pcg = PC_GAP if kind == "n" else 235
@@ -368,11 +367,12 @@ def mos_short(lay, x0, y0, kind, W, gnet, s_net, d_net, head="top", tail=300, s_
     gc = x0 + s_w + L // 2
     if head == "top":
         pcy = y0 + W + pcg
-        lay.rect("poly", gc - 75, y0 - ENDCAP, gc + 75, pcy)
+        lay.rect("poly", gc - L // 2, y0 - ENDCAP, gc + L // 2, pcy)
     else:
         pcy = y0 - pcg - CT
-        lay.rect("poly", gc - 75, pcy + CT, gc + 75, y0 + W + ENDCAP)
-    lay.rect("poly", gc - 135, pcy - 80, gc + 135, pcy + CT + 80)
+        lay.rect("poly", gc - L // 2, pcy + CT, gc + L // 2, y0 + W + ENDCAP)
+    ph = max(135, L // 2)
+    lay.rect("poly", gc - ph, pcy - 80, gc + ph, pcy + CT + 80)
     lay.rect("polycont", gc - 85, pcy, gc + 85, pcy + CT)
     xt = s.x2 + tail
     lay.rect("locali", min(gc - 165, xt - 85), pcy, max(gc + 165, xt + 85), pcy + CT)
@@ -403,3 +403,15 @@ def xres(lay, x, y, Lsch):
         lay.rect("viali", x + 80, yy + 85, x + XRW - 80, yy + XHEAD - 90)
         lay.rect("metal1", x + 50, yy + 25, x + XRW - 50, yy + XHEAD - 30)
     return (x + XRW // 2, y + XHEAD // 2), (x + XRW // 2, yt + XHEAD // 2)
+
+
+def mim(lay, x, y, w, l):
+    """sky130_fd_pr__cap_mim_m3_1 (w x l um of capm) with lower-left of capm at (x,y).
+    Bottom plate = met3 (1 um margin), top plate = met4 over a mimcc array.
+    Extracts as  X top bot sky130_fd_pr__cap_mim_m3_1 w= l= .  Returns (m3 box, m4 box)."""
+    W, L = int(w * 1000), int(l * 1000)
+    m3 = lay.rect("metal3", x - 1000, y - 1000, x + W + 1000, y + L + 1000)
+    lay.rect("mimcap", x, y, x + W, y + L)
+    lay.rect("mimcapcontact", x + 1000, y + 1000, x + W - 1000, y + L - 1000)
+    m4 = lay.rect("metal4", x + 500, y + 500, x + W - 500, y + L - 500)
+    return m3, m4

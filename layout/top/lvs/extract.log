@@ -1,0 +1,38 @@
+
+Magic 8.3 revision 642 - Compiled on Wed May 13 07:57:37 PM CEST 2026.
+Starting magic under Tcl interpreter
+Using the terminal as the console.
+WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=1048576]
+Using NULL graphics device.
+Processing system .magicrc file
+Switching to WIRING tool.
+Switching to NETLIST tool.
+Switching to PICK tool.
+Switching to BOX tool.
+Sourcing design .magicrc for technology sky130A ...
+2 Magic internal units = 1 Lambda
+Input style sky130(): scaleFactor=2, multiplier=2
+The following types are not handled by extraction and will be treated as non-electrical types:
+    ubm 
+Scaled tech values by 2 / 1 to match internal grid scaling
+Loading sky130A Device Generator Menu ...
+Loading "/foss/designs/ttsky26d_analog_compute/layout/top/lvs/ext.tcl" from command line.
+Cell tt_um_ttsky26d_analog_compute read from current working directory
+Cell passives read from path ../layout/blocks/passives/out
+Cell Rail_to_Rail_IP_OP_OTA_with_Intrenal_Bias read from path ../xschem/ip/rail_to_rail_ota/layout/mag
+Cell idac_universal read from path ../layout/blocks/idac_universal/out
+Cell combined read from path ../layout/blocks/combined/out
+Cell aux read from path ../layout/blocks/aux/out
+Extracting passives into /foss/designs/ttsky26d_analog_compute/layout/top/lvs/passives.ext:
+Processing passives
+Extracting Rail_to_Rail_IP_OP_OTA_with_Intrenal_Bias into /foss/designs/ttsky26d_analog_compute/layout/top/lvs/Rail_to_Rail_IP_OP_OTA_with_Intrenal_Bias.ext:
+Processing Rail_to_Rail_IP_OP_OTA_with_Intrenal_Bias
+Extracting idac_universal into /foss/designs/ttsky26d_analog_compute/layout/top/lvs/idac_universal.ext:
+Processing idac_universal
+Extracting combined into /foss/designs/ttsky26d_analog_compute/layout/top/lvs/combined.ext:
+Processing combined
+Extracting aux into /foss/designs/ttsky26d_analog_compute/layout/top/lvs/aux.ext:
+Processing aux
+Extracting tt_um_ttsky26d_analog_compute into /foss/designs/ttsky26d_analog_compute/layout/top/lvs/tt_um_ttsky26d_analog_compute.ext:
+Processing tt_um_ttsky26d_analog_compute
+exttospice finished.
